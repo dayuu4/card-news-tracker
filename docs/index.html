@@ -1,91 +1,434 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Card News Dashboard — Setting Up</title>
-<style>
-  :root { color-scheme: light; }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: #F0F4F8; color: #1E293B; min-height: 100vh;
-    display: flex; align-items: center; justify-content: center; padding: 24px;
-  }
-  .card {
-    background: white; border-radius: 16px; padding: 40px;
-    max-width: 520px; width: 100%; text-align: center;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-  }
-  .icon { font-size: 48px; margin-bottom: 16px; }
-  h1 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
-  .sub { font-size: 14px; color: #64748B; margin-bottom: 24px; line-height: 1.6; }
-  .step {
-    background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px;
-    padding: 14px 16px; margin-bottom: 10px; text-align: left;
-  }
-  .step-num {
-    display: inline-block; width: 22px; height: 22px; background: #2563EB;
-    color: white; border-radius: 50%; font-size: 11px; font-weight: 700;
-    text-align: center; line-height: 22px; margin-right: 8px; flex-shrink: 0;
-  }
-  .step-text { font-size: 13px; color: #374151; line-height: 1.5; }
-  code {
-    background: #EFF6FF; color: #1D4ED8; padding: 2px 6px;
-    border-radius: 4px; font-size: 12px; font-family: monospace;
-  }
-  .note {
-    background: #FFF7ED; border: 1px solid #FED7AA; border-radius: 8px;
-    padding: 12px 14px; font-size: 12px; color: #92400E; margin-top: 20px; text-align: left;
-  }
-  .footer { margin-top: 24px; font-size: 11px; color: #94A3B8; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card News & Updates</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #EEF2F7;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 880px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #1B3A6B;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+        }
+        .chip {
+            background-color: #d3d3d3;
+            padding: 5px 10px;
+            border-radius: 10px;
+            display: inline-block;
+            font-size: 0.8em;
+            margin-bottom: 20px;
+        }
+        .action-required {
+            background-color: #FFF7ED;
+            border-left: 4px solid #D97706;
+            color: #92400E;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .stats-row {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .stat-chip {
+            background-color: #e0e0e0;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .card-section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .discover-spotlight {
+            background-color: #D45600;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .discover-spotlight h2 {
+            margin-top: 0;
+            color: white;
+        }
+        .discover-spotlight p {
+            margin: 5px 0;
+        }
+        .discover-spotlight strong {
+            color: #f0e68c; /* Khaki for emphasis */
+        }
+        .changes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .card-tile {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .card-header {
+            padding: 10px;
+            color: white;
+            font-weight: bold;
+            position: relative;
+        }
+        .card-header .annual-fee {
+            font-size: 0.8em;
+            font-weight: normal;
+            opacity: 0.8;
+            margin-left: 10px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            margin-right: 5px;
+            color: white;
+            font-weight: bold;
+        }
+        .badge-new-perk { background-color: #28a745; } /* Green */
+        .badge-benefit-change { background-color: #17a2b8; } /* Blue */
+        .badge-promo { background-color: #ffc107; color: #333; } /* Orange */
+        .badge-fee-change { background-color: #dc3545; } /* Red */
+        .card-content {
+            padding: 15px;
+        }
+        .card-content ul {
+            list-style: disc;
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+        .card-content li {
+            margin-bottom: 8px;
+        }
+        .card-content a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .card-content a:hover {
+            text-decoration: underline;
+        }
+        .action-needed {
+            color: #dc3545;
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+        .no-changes-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .no-changes-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .no-changes-list li:last-child {
+            border-bottom: none;
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.8em;
+            color: #888;
+        }
+
+        /* Issuer Colors */
+        .amex { background: linear-gradient(to right, #1B3A6B, #B8960C); }
+        .chase { background-color: #0A2342; }
+        .capitalone { background: linear-gradient(to right, #1A1A2E, #4A2C8A); }
+        .discover { background-color: #D45600; }
+        .citi { background-color: #003087; }
+        .wellsfargo { background-color: #8B0000; }
+        .usbank { background-color: #8C1A1A; }
+
+        @media (min-width: 600px) {
+            .changes-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="card">
-  <div class="icon">💳</div>
-  <h1>Card News Dashboard</h1>
-  <p class="sub">
-    This page will automatically update on the <strong>1st of every month</strong>
-    with the latest news and benefit changes across your 18 credit cards.
-    Complete the one-time setup below to activate it.
-  </p>
+    <div class="container">
+        <header>
+            <h1>💳 Card News & Updates</h1>
+            <div style="text-align: center;">
+                <span class="chip">April 2026 · 18 cards monitored</span>
+                <span class="chip">Powered by Gemini + Google Search</span>
+            </div>
+        </header>
 
-  <div class="step">
-    <span class="step-num">1</span>
-    <span class="step-text">
-      <strong>Add your Anthropic API key as a GitHub secret</strong><br>
-      Repository → Settings → Secrets &amp; variables → Actions → New secret<br>
-      Name: <code>ANTHROPIC_API_KEY</code> &nbsp; Value: your API key
-    </span>
-  </div>
+        <section class="action-required">
+            <p><strong>⚡ ACTION REQUIRED:</strong> Activate Discover Q2 5% categories at discover.com/activate</p>
+        </section>
 
-  <div class="step">
-    <span class="step-num">2</span>
-    <span class="step-text">
-      <strong>Enable GitHub Pages</strong><br>
-      Repository → Settings → Pages → Source: <code>Deploy from a branch</code><br>
-      Branch: <code>main</code> &nbsp; Folder: <code>/docs</code> → Save
-    </span>
-  </div>
+        <section class="stats-row">
+            <div class="stat-chip">10 cards with news</div>
+            <div class="stat-chip">8 no changes</div>
+            <div class="stat-chip">Updated April 23, 2026</div>
+        </section>
 
-  <div class="step">
-    <span class="step-num">3</span>
-    <span class="step-text">
-      <strong>Trigger your first run manually</strong><br>
-      Repository → Actions → "Monthly Card News Refresh" → Run workflow<br>
-      Takes ~2 minutes. This page will be replaced with the live dashboard.
-    </span>
-  </div>
+        <section class="discover-spotlight card-section">
+            <h2>DISCOVER IT — Q2 2026 SPOTLIGHT</h2>
+            <p><strong>5% Rotating Categories:</strong> Restaurants, Home Improvement Stores</p>
+            <p><strong>Maximum Cash Back:</strong> $75 (5% of $1,500 cap)</p>
+            <p><strong>Reminder:</strong> Must activate by end of Q2 at discover.com/activate</p>
+        </section>
 
-  <div class="note">
-    📌 <strong>Bookmark your dashboard URL</strong> once it's live:<br>
-    <code>https://&lt;your-username&gt;.github.io/&lt;repo-name&gt;/</code><br>
-    The workflow runs automatically on the 1st of each month. You can also
-    re-run it anytime from the Actions tab.
-  </div>
+        <section class="changes-grid">
 
-  <p class="footer">18 cards · Amex · Chase · Capital One · Discover · Citi · Wells Fargo · US Bank</p>
-</div>
+            <div class="card-tile">
+                <div class="card-header amex">
+                    American Express Platinum Card <span class="annual-fee">($695/yr)</span>
+                </div>
+                <div class="card-content">
+                    <span class="badge badge-benefit-change">BENEFIT CHANGE</span>
+                    <span class="badge badge-benefit-change">BENEFIT CHANGE</span>
+                    <span class="badge badge-benefit-change">BENEFIT CHANGE</span>
+                    <span class="badge badge-new-perk">NEW PERK</span>
+                    <ul>
+                        <li>Saks Fifth Avenue credit discontinued for new cardholders immediately; existing cardholders retain through June 30, 2026.</li>
+                        <li>"Events by Amex" benefit winding down June 10, 2026.</li>
+                        <li>Uber VIP Status removed, replaced with "Signature Support for Amex"; $200 Uber Cash credit remains.</li>
+                        <li>Lufthansa Business Lounge access removed as a benefit effective October 1, 2026.</li>
+                        <li>New airfare program introduced as part of evolving travel benefits.</li>
+                        <li>Annual fee remains $895.</li>
+                        <li>New credits include $300 annual Lululemon credit and $200 Oura Ring credit.</li>
+                        <li>$400 annual Resy dining credit (enrollment required).</li>
+                        <li>$600 annual hotel credit for Fine Hotels + Resorts® or The Hotel Collection bookings.</li>
+                        <li>Up to $300 in digital entertainment credits with expanded partners (enrollment required).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-tile">
+                <div class="card-header chase">
+                    Chase Freedom Unlimited <span class="annual-fee">($0/yr)</span>
+                </div>
+                <div class="card-content">
+                    <span class="badge badge-promo">PROMO</span>
+                    <span class="badge badge-promo">PROMO</span>
+                    <ul>
+                        <li>Limited-time welcome bonus: $250 after spending $500 in the first 3 months (ends April 30, 2026).</li>
+                        <li>This offer is $50 higher than the typical $200 bonus.</li>
+                        <li>Earning rates: 5% on travel booked through Chase, 3% on dining and drugstores, 1.5% on everything else.</li>
+                        <li>0% intro APR for 15 months on purchases and balance transfers.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-tile">
+                <div class="card-header chase">
+                    Chase Southwest Priority <span class="annual-fee">($149/yr)</span>
+                </div>
+                <div class="card-content">
+                    <ul>
+                        <li>No significant changes found this month.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-tile">
+                <div class="card-header chase">
+                    Chase United Explorer <span class="annual-fee">($95/yr)</span>
+                </div>
+                <div class="card-content">
+                    <ul>
+                        <li>No significant changes found this month.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-tile">
+                <div class="card-header chase">
+                    Chase Ink Business Cash <span class="annual-fee">($0/yr)</span>
+                </div>
+                <div class="card-content">
+                    <ul>
+                        <li>No significant changes found this month.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-tile">
+                <div class="card-header chase">
+                    Chase Ink Business Unlimited <span class="annual-fee">($0/yr)</span>
+                </div>
+                <div class="card-content">
+                    <span class="badge badge-promo">PROMO</span>
+                    <ul>
+                        <li>Welcome bonus: $750 after spending $6,000 in the first 3 months.</li>
+                        <li>0% intro APR for 12 months on purchases.</li>
+                        <li>Earns unlimited 1.5% cash back on all purchases.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-tile">
+                <div class="card-header capitalone">
+                    Capital One Venture X <span class="annual-fee">($395/yr)</span>
+                </div>
+                <div class="card-content">
+                    <span class="badge badge-promo">PROMO</span>
+                    <ul>
+                        <li>Current public offer: 75,000 miles after spending $4,000 in the first 3 months.</li>
+                        <li>Annual $300 credit for bookings through Capital One Travel.</li>
+                        <li>Up to $120 credit for Global Entry or TSA PreCheck.</li>
+                        <li>10,000 bonus miles every year starting on the first anniversary.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-tile">
+                <div class="card-header capitalone">
+                    Capital One Venture <span class="annual-fee">($95/yr)</span>
+                </div>
+                <div class="card-content">
+                    <span class="badge badge-promo">PROMO</span>
+                    <ul>
+                        <li>Current offer: 75,000 miles after spending $4,000 in the first 3 months.</li>
+                        <li>Earns unlimited 2X miles on every purchase.</li>
+                        <li>Earns 5X miles on hotels, vacation rentals, and rental cars booked through Capital One Travel.</li>
+                        <li>Up to $120 credit for Global Entry or TSA PreCheck.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-tile">
+                <div class="card-header discover">
+                    Discover it Card <span class="annual-fee">($0/yr)</span>
+                </div>
+                <div class="card-content">
+                    <span class="badge badge-new-perk">NEW PERK</span>
+                    <ul>
+                        <li>Q2 2026 (April 1 - June 30): 5% cash back on purchases at restaurants and home improvement stores, up to $1,500 in combined purchases after activation.</li>
+                        <li>Maximum cash back for Q2: $75.</li>
+                        <li>Cardholders must activate these categories at discover.com/activate to earn 5%.</li>
+                        <li>Unlimited 1% cash back on all other purchases.</li>
+                        <li>First-year cardholders receive an automatic Cashback Match of all earned cash back.</li>
+                        <li>0% intro APR for 15 months on purchases.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-tile">
+                <div class="card-header citi">
+                    Citi Custom Cash <span class="annual-fee">($0/yr)</span>
+                </div>
+                <div class="card-content">
+                    <span class="badge badge-promo">PROMO</span>
+                    <ul>
+                        <li>Welcome offer: $200 cash back after spending $1,500 in the first 6 months.</li>
+                        <li>Introductory APR of 0% for 18 months on balance transfers.</li>
+                        <li>Earns 5% cash back on purchases in your top eligible spend category each billing cycle, up to the first $500 spent, then 1% back.</li>
+                        <li>Additional 4% cash back on hotels, car rentals, and attractions booked with Citi Travel.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-tile">
+                <div class="card-header wellsfargo">
+                    Wells Fargo Active Cash <span class="annual-fee">($0/yr)</span>
+                </div>
+                <div class="card-content">
+                    <span class="badge badge-promo">PROMO</span>
+                    <ul>
+                        <li>Welcome offer: $200 cash rewards after spending $500 in the first 3 months.</li>
+                        <li>Earns a flat 2% cash rewards on purchases.</li>
+                        <li>0% intro APR for 12 months on purchases and balance transfers.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-tile">
+                <div class="card-header usbank">
+                    US Bank Business Triple Cash <span class="annual-fee">($0/yr)</span>
+                </div>
+                <div class="card-content">
+                    <span class="badge badge-promo">PROMO</span>
+                    <ul>
+                        <li>Welcome bonus: $750 cash back after spending $6,000 in the first 180 days.</li>
+                        <li>Earns 3% cash back on eligible purchases at gas stations, office supply stores, cell phone service providers, and restaurants.</li>
+                        <li>Earns 1% cash back on all other eligible purchases.</li>
+                        <li>Annual $100 statement credit for recurring software subscription expenses.</li>
+                        <li>0% intro APR for 12 billing cycles on purchases and balance transfers.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-tile">
+                <div class="card-header usbank">
+                    US Bank Altitude Go <span class="annual-fee">($0/yr)</span>
+                </div>
+                <div class="card-content">
+                    <span class="badge badge-promo">PROMO</span>
+                    <ul>
+                        <li>Welcome offer: 20,000 bonus points after spending $1,000 in the first 90 days.</li>
+                        <li>Earns 2X points per $1 on grocery stores, gas stations, and qualifying streaming services.</li>
+                        <li>Automatic statement credit of $15 per 12-month period for eligible streaming service purchases (enrollment required).</li>
+                        <li>0% intro APR for 15 billing cycles on purchases and balance transfers.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="no-changes">
+            <h2>NO CHANGES THIS MONTH</h2>
+            <ul class="no-changes-list">
+                <li>Amex Blue Cash Everyday</li>
+                <li>Amex Blue Business Plus</li>
+                <li>Amex Delta SkyMiles Gold</li>
+                <li>Amex Hilton Honors</li>
+                <li>Chase Sapphire Preferred</li>
+                <li>US Bank Altitude Go (Note: While a welcome offer is active, no other benefit changes were found.)</li>
+            </ul>
+        </section>
+
+        <footer>
+            Researched April 2026 · Auto-refreshed on the 1st of each month via GitHub Actions · 18 cards tracked
+        </footer>
+    </div>
 </body>
 </html>
+```
