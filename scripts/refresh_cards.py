@@ -10,11 +10,13 @@ Requires: GEMINI_API_KEY environment variable (free at aistudio.google.com)
 """
 
 import os
+import time
 from datetime import datetime
 from pathlib import Path
 
 from google import genai
 from google.genai import types
+from google.genai.errors import ServerError, ClientError
 
 
 # ── CARD PORTFOLIO ────────────────────────────────────────────────
@@ -161,19 +163,36 @@ def main():
         card_count=len(CARDS),
     )
 
-    # ── Call Gemini with Google Search grounding ──────────────────
-    print("🔍 Researching via Gemini 2.0 Flash + Google Search...")
+    # ── Call Gemini with Google Search grounding (with retry) ────────
+    print("🔍 Researching via Gemini 2.5 Flash + Google Search...")
     client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
 
-    response = client.models.generate_content(
-        model="gemini-2.5-flash",
-        contents=prompt,
-        config=types.GenerateContentConfig(
-            tools=[types.Tool(google_search=types.GoogleSearch())],
-            temperature=0.2,     # lower = more factual, less creative
-            max_output_tokens=16000,
-        ),
-    )
+    MAX_RETRIES = 4
+    RETRY_DELAYS = [30, 60, 120, 180]   # seconds between attempts
+
+    for attempt in range(1, MAX_RETRIES + 1):
+        try:
+            print(f"  Attempt {attempt}/{MAX_RETRIES}...")
+            response = client.models.generate_content(
+                model="gemini-2.5-flash",
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    tools=[types.Tool(google_search=types.GoogleSearch())],
+                    temperature=0.2,
+                    max_output_tokens=16000,
+                ),
+            )
+            break   # success — exit retry loop
+
+        except (ServerError, ClientError) as e:
+            status = getattr(e, 'status_code', None) or getattr(e, 'code', None)
+            retryable = status in (429, 503)
+            if retryable and attempt < MAX_RETRIES:
+                wait = RETRY_DELAYS[attempt - 1]
+                print(f"  ⚠️  {status} error — waiting {wait}s before retry...")
+                time.sleep(wait)
+            else:
+                raise   # non-retryable or out of retries
 
     html = response.text.strip()
     print(f"  → {len(html):,} characters generated")
