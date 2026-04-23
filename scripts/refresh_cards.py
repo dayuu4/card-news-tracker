@@ -1,15 +1,28 @@
 #!/usr/bin/env python3
 """
 Monthly Credit Card News Refresh
-Uses Gemini 2.0 Flash with Google Search grounding.
+Uses Gemini Flash models with Google Search grounding.
 One API call handles both live research and HTML dashboard generation — no
 separate search dependency needed.
 
 Run via GitHub Actions on the 1st of each month, or manually via workflow_dispatch.
 Requires: GEMINI_API_KEY environment variable (free at aistudio.google.com)
+
+Resilience strategy (all free-tier):
+  1. Try the preferred model with Google Search grounding, retrying on
+     transient 429/503 errors with exponential backoff + jitter.
+  2. If that model stays unavailable, fall back to other free Gemini models
+     that share quota but not capacity pools.
+  3. As a last resort, retry without Google Search grounding (ungrounded
+     calls are throttled less aggressively) so the dashboard still renders.
+  4. If every attempt fails, leave the previous docs/index.html in place and
+     exit 0 with a clear warning so GitHub Pages keeps serving the last
+     known-good dashboard.
 """
 
 import os
+import random
+import sys
 import time
 from datetime import datetime
 from pathlib import Path
@@ -145,7 +158,7 @@ def main():
 
     print(f"\n{'='*60}")
     print(f"  Monthly Card News Refresh — {month_year}")
-    print(f"  Q{quarter} {year}  ·  {len(CARDS)} cards  ·  Gemini 2.0 Flash")
+    print(f"  Q{quarter} {year}  ·  {len(CARDS)} cards  ·  Gemini Flash")
     print(f"{'='*60}\n")
 
     # Build card list string for prompt
@@ -163,39 +176,103 @@ def main():
         card_count=len(CARDS),
     )
 
-    # ── Call Gemini with Google Search grounding (with retry) ────────
-    print("🔍 Researching via Gemini 2.5 Flash + Google Search...")
+    # ── Call Gemini with model fallback + retry ──────────────────────
     client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
 
+    # Free-tier Gemini models, ordered by preference. They share daily quota
+    # but live in separate capacity pools, so when one is saturated with a
+    # 503 the next usually still serves traffic.
+    MODEL_FALLBACKS = [
+        "gemini-2.5-flash",
+        "gemini-2.5-flash-lite",
+        "gemini-2.0-flash",
+        "gemini-2.0-flash-lite",
+    ]
+
     MAX_RETRIES = 4
-    RETRY_DELAYS = [30, 60, 120, 180]   # seconds between attempts
+    # Base delays in seconds; jitter is added per attempt.
+    RETRY_DELAYS = [30, 90, 180, 300]
+    RETRYABLE_STATUSES = {429, 500, 502, 503, 504}
 
-    for attempt in range(1, MAX_RETRIES + 1):
-        try:
-            print(f"  Attempt {attempt}/{MAX_RETRIES}...")
-            response = client.models.generate_content(
-                model="gemini-2.5-flash",
-                contents=prompt,
-                config=types.GenerateContentConfig(
-                    tools=[types.Tool(google_search=types.GoogleSearch())],
-                    temperature=0.2,
-                    max_output_tokens=16000,
-                ),
+    html = None
+    last_error = None
+
+    # Outer loop: walk model fallbacks. Inner loop: retry transient errors.
+    # On the very last model we also try once more with grounding disabled,
+    # since ungrounded calls are throttled far less aggressively.
+    for model_idx, model_name in enumerate(MODEL_FALLBACKS):
+        is_last_model = model_idx == len(MODEL_FALLBACKS) - 1
+        grounding_options = [True, False] if is_last_model else [True]
+
+        for use_grounding in grounding_options:
+            mode = "with Google Search" if use_grounding else "WITHOUT grounding (last-resort)"
+            print(f"🔍 Trying {model_name} {mode}...")
+
+            tools = (
+                [types.Tool(google_search=types.GoogleSearch())]
+                if use_grounding
+                else None
             )
-            break   # success — exit retry loop
+            config = types.GenerateContentConfig(
+                tools=tools,
+                temperature=0.2,
+                max_output_tokens=16000,
+            )
 
-        except (ServerError, ClientError) as e:
-            status = getattr(e, 'status_code', None) or getattr(e, 'code', None)
-            retryable = status in (429, 503)
-            if retryable and attempt < MAX_RETRIES:
-                wait = RETRY_DELAYS[attempt - 1]
-                print(f"  ⚠️  {status} error — waiting {wait}s before retry...")
-                time.sleep(wait)
-            else:
-                raise   # non-retryable or out of retries
+            for attempt in range(1, MAX_RETRIES + 1):
+                try:
+                    print(f"  Attempt {attempt}/{MAX_RETRIES}...")
+                    response = client.models.generate_content(
+                        model=model_name,
+                        contents=prompt,
+                        config=config,
+                    )
+                    html = response.text.strip()
+                    print(f"  ✅ Success with {model_name} ({mode}) — "
+                          f"{len(html):,} characters generated")
+                    break  # success — exit retry loop
 
-    html = response.text.strip()
-    print(f"  → {len(html):,} characters generated")
+                except (ServerError, ClientError) as e:
+                    last_error = e
+                    status = (
+                        getattr(e, 'status_code', None)
+                        or getattr(e, 'code', None)
+                    )
+                    retryable = status in RETRYABLE_STATUSES
+                    if retryable and attempt < MAX_RETRIES:
+                        base = RETRY_DELAYS[attempt - 1]
+                        # ±20% jitter so concurrent jobs don't sync retries.
+                        wait = base * random.uniform(0.8, 1.2)
+                        print(f"  ⚠️  {status} error — waiting "
+                              f"{wait:.0f}s before retry...")
+                        time.sleep(wait)
+                    else:
+                        # Non-retryable, or out of retries for this
+                        # (model, grounding) combo. Break to escalate.
+                        print(f"  ✗ Giving up on {model_name} ({mode}): "
+                              f"status={status}")
+                        break
+
+            if html is not None:
+                break  # success — stop trying grounding variants
+
+        if html is not None:
+            break  # success — stop trying fallback models
+
+    # ── Handle total failure gracefully ──────────────────────────────
+    if html is None:
+        print(
+            "\n❌ All Gemini models exhausted. Leaving previous "
+            "docs/index.html in place so GitHub Pages keeps serving the "
+            "last known-good dashboard.",
+            file=sys.stderr,
+        )
+        if last_error is not None:
+            print(f"   Last error: {last_error}", file=sys.stderr)
+        # Exit 0 so the workflow does not mark the deploy as failed and so
+        # the existing dashboard remains published. The next scheduled or
+        # manual run will try again.
+        return
 
     # ── Validate output ───────────────────────────────────────────
     if "<!DOCTYPE html>" not in html and "<html" not in html.lower():
