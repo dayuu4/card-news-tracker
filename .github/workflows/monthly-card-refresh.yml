@@ -13,7 +13,10 @@ permissions:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    # Generous timeout: the script walks several Gemini model fallbacks
+    # with exponential backoff before giving up, so a single saturated
+    # model doesn't fail the whole run.
+    timeout-minutes: 30
 
     steps:
       - name: Checkout repository
