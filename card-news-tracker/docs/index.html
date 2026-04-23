@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Card News Dashboard — Setting Up</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #F0F4F8; color: #1E293B; min-height: 100vh;
+    display: flex; align-items: center; justify-content: center; padding: 24px;
+  }
+  .card {
+    background: white; border-radius: 16px; padding: 40px;
+    max-width: 520px; width: 100%; text-align: center;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  }
+  .icon { font-size: 48px; margin-bottom: 16px; }
+  h1 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+  .sub { font-size: 14px; color: #64748B; margin-bottom: 24px; line-height: 1.6; }
+  .step {
+    background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px;
+    padding: 14px 16px; margin-bottom: 10px; text-align: left;
+  }
+  .step-num {
+    display: inline-block; width: 22px; height: 22px; background: #2563EB;
+    color: white; border-radius: 50%; font-size: 11px; font-weight: 700;
+    text-align: center; line-height: 22px; margin-right: 8px; flex-shrink: 0;
+  }
+  .step-text { font-size: 13px; color: #374151; line-height: 1.5; }
+  code {
+    background: #EFF6FF; color: #1D4ED8; padding: 2px 6px;
+    border-radius: 4px; font-size: 12px; font-family: monospace;
+  }
+  .note {
+    background: #FFF7ED; border: 1px solid #FED7AA; border-radius: 8px;
+    padding: 12px 14px; font-size: 12px; color: #92400E; margin-top: 20px; text-align: left;
+  }
+  .footer { margin-top: 24px; font-size: 11px; color: #94A3B8; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="icon">💳</div>
+  <h1>Card News Dashboard</h1>
+  <p class="sub">
+    This page will automatically update on the <strong>1st of every month</strong>
+    with the latest news and benefit changes across your 18 credit cards.
+    Complete the one-time setup below to activate it.
+  </p>
+
+  <div class="step">
+    <span class="step-num">1</span>
+    <span class="step-text">
+      <strong>Add your Anthropic API key as a GitHub secret</strong><br>
+      Repository → Settings → Secrets &amp; variables → Actions → New secret<br>
+      Name: <code>ANTHROPIC_API_KEY</code> &nbsp; Value: your API key
+    </span>
+  </div>
+
+  <div class="step">
+    <span class="step-num">2</span>
+    <span class="step-text">
+      <strong>Enable GitHub Pages</strong><br>
+      Repository → Settings → Pages → Source: <code>Deploy from a branch</code><br>
+      Branch: <code>main</code> &nbsp; Folder: <code>/docs</code> → Save
+    </span>
+  </div>
+
+  <div class="step">
+    <span class="step-num">3</span>
+    <span class="step-text">
+      <strong>Trigger your first run manually</strong><br>
+      Repository → Actions → "Monthly Card News Refresh" → Run workflow<br>
+      Takes ~2 minutes. This page will be replaced with the live dashboard.
+    </span>
+  </div>
+
+  <div class="note">
+    📌 <strong>Bookmark your dashboard URL</strong> once it's live:<br>
+    <code>https://&lt;your-username&gt;.github.io/&lt;repo-name&gt;/</code><br>
+    The workflow runs automatically on the 1st of each month. You can also
+    re-run it anytime from the Actions tab.
+  </div>
+
+  <p class="footer">18 cards · Amex · Chase · Capital One · Discover · Citi · Wells Fargo · US Bank</p>
+</div>
+</body>
+</html>

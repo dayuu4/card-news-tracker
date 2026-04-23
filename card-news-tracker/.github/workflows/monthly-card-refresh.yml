@@ -1,0 +1,56 @@
+name: Monthly Card News Refresh
+
+on:
+  schedule:
+    # Runs at 9:00 AM UTC on the 1st of every month
+    - cron: '0 9 1 * *'
+  # Allows you to trigger this manually from the GitHub Actions tab anytime
+  workflow_dispatch:
+
+permissions:
+  contents: write   # needed to commit the updated dashboard HTML
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run card news research & generate dashboard
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python scripts/refresh_cards.py
+
+      - name: Commit and push updated dashboard
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add docs/index.html
+          # Only commit if the file actually changed
+          if git diff --staged --quiet; then
+            echo "No changes to dashboard — skipping commit."
+          else
+            MONTH=$(date +'%B %Y')
+            git commit -m "chore: card news refresh — ${MONTH}"
+            git push
+            echo "✅ Dashboard committed and pushed."
+          fi
