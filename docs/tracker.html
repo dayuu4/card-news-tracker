@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Card Benefits Tracker</title>
+<style>
+:root{color-scheme:light;--bg:#EEF2F7;--surface:#FFF;--s2:#F8FAFC;--border:#E2E8F0;--t1:#1E293B;--t2:#475569;--t3:#94A3B8;--blue:#2563EB;--blt:#EFF6FF;--green:#059669;--glt:#ECFDF5;--rad:12px;--rsm:8px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--t1);font-size:13px;min-height:100vh}
+/* Top nav */
+.topnav{background:#1E293B;padding:10px 16px;display:flex;align-items:center;justify-content:space-between}
+.topnav-title{color:#fff;font-size:14px;font-weight:700}
+.topnav-link{color:#94A3B8;font-size:12px;text-decoration:none;padding:5px 10px;border-radius:6px;transition:all .15s}
+.topnav-link:hover{background:#334155;color:#fff}
+/* Header */
+.hdr{background:var(--surface);border-bottom:1px solid var(--border);padding:9px 14px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:20}
+.hdr-title{font-size:15px;font-weight:700}.hdr-sub{font-size:11px;color:var(--t3);margin-top:1px}
+.ptabs{display:flex;gap:3px}
+.ptab{padding:5px 10px;border-radius:20px;border:none;background:none;color:var(--t2);font-size:12px;font-weight:500;cursor:pointer;transition:all .15s}
+.ptab:hover{background:var(--bg)}.ptab.active{background:var(--blue);color:#fff}
+/* Layout */
+.layout{display:flex;height:calc(100vh - 91px)}
+.sbar{width:185px;min-width:185px;background:var(--surface);border-right:1px solid var(--border);overflow-y:auto;padding-bottom:16px}
+.sbar-sec{padding:10px 10px 4px}
+.sbar-lbl{font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.7px;margin-bottom:4px}
+.nav-it{padding:6px 9px;border-radius:var(--rsm);cursor:pointer;font-size:12px;font-weight:500;color:var(--t2);transition:all .15s;border:1.5px solid transparent;margin-bottom:1px}
+.nav-it:hover{background:var(--bg)}.nav-it.active{background:var(--blt);color:var(--blue);border-color:#BFDBFE}
+.nav-it.cov-nav{color:#7C3AED}.nav-it.cov-nav:hover{background:#F5F3FF}.nav-it.cov-nav.active{background:#F5F3FF;color:#6D28D9;border-color:#C4B5FD}
+.cit{border-radius:var(--rsm);padding:8px 9px;cursor:pointer;margin-bottom:3px;border:1.5px solid transparent;transition:all .15s}
+.cit:hover{background:var(--bg)}.cit.active{border-color:var(--blue);background:var(--blt)}
+.cit-name{font-weight:600;font-size:12px;display:flex;align-items:center;gap:5px}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.cit-fee{font-size:10px;color:var(--t3);margin-top:1px}
+.cpb{height:3px;border-radius:2px;background:var(--border);margin-top:5px;overflow:hidden}
+.cpf{height:100%;border-radius:2px;background:var(--green);transition:width .3s}
+.cps{display:flex;justify-content:space-between;margin-top:2px;font-size:10px}
+/* Main */
+.main{flex:1;overflow-y:auto;padding:14px}
+.srow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.sc{background:var(--surface);border:1px solid var(--border);border-radius:var(--rsm);padding:10px 12px}
+.sc-l{font-size:10px;color:var(--t3);font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.sc-v{font-size:19px;font-weight:800;color:var(--t1);margin-top:1px;line-height:1.1}
+.sc-s{font-size:10px;color:var(--t3);margin-top:2px}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:9px;margin-bottom:12px}
+.oc{background:var(--surface);border:1px solid var(--border);border-radius:var(--rad);overflow:hidden;cursor:pointer;transition:all .18s}
+.oc:hover{box-shadow:0 4px 14px rgba(0,0,0,.09);transform:translateY(-1px)}
+.oc-hdr{padding:11px 14px;color:#fff}.oc-name{font-size:13px;font-weight:700}.oc-fee{font-size:10px;opacity:.75;margin-top:1px}
+.oc-body{padding:9px 14px}
+.opb{height:4px;border-radius:3px;background:var(--border);margin:6px 0;overflow:hidden}
+.opf{height:100%;border-radius:3px;background:var(--green);transition:width .4s}
+.osts{display:flex;justify-content:space-between}
+.os{text-align:center}.os-v{font-size:13px;font-weight:700}.os-l{font-size:10px;color:var(--t3)}
+.cdh{border-radius:var(--rad);padding:13px 15px;margin-bottom:11px;color:#fff}
+.cdh-name{font-size:15px;font-weight:700}.cdh-fee{font-size:11px;opacity:.75;margin-top:1px}
+.cdh-sts{display:flex;gap:18px;margin-top:9px;flex-wrap:wrap}
+.cdhs-v{font-size:16px;font-weight:700;line-height:1}.cdhs-l{font-size:10px;opacity:.7;margin-top:2px}
+.sec{margin-bottom:11px}
+.sec-t{font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.7px;padding-bottom:5px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.sec-v{font-size:12px;font-weight:600;color:var(--t2)}
+.br{background:var(--surface);border:1px solid var(--border);border-radius:var(--rsm);padding:8px 10px;margin-bottom:4px;display:flex;align-items:center;gap:8px;transition:all .15s;cursor:pointer;user-select:none}
+.br:hover{box-shadow:0 4px 14px rgba(0,0,0,.09);border-color:#CBD5E1}
+.br.used{background:var(--glt);border-color:#A7F3D0}
+.br.used .bn{color:var(--t2);text-decoration:line-through;text-decoration-color:#6EE7B7}
+.bck{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;background:#fff;font-size:10px;font-weight:700;color:#fff}
+.bck.on{background:var(--green);border-color:var(--green)}
+.bi{font-size:14px;flex-shrink:0}
+.binfo{flex:1;min-width:0}
+.bn{font-size:12px;font-weight:600;color:var(--t1)}
+.bd{font-size:11px;color:var(--t3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+.bnp{font-size:11px;color:var(--blue);margin-top:1px}
+.brt{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.bv{font-size:12px;font-weight:700;color:var(--t1)}.bv.z{color:var(--t3);font-size:11px}
+.pb{font-size:10px;font-weight:600;padding:2px 6px;border-radius:20px;text-transform:uppercase;letter-spacing:.3px;white-space:nowrap}
+.pb.monthly{background:#DBEAFE;color:#1D4ED8}.pb.quarterly{background:#FEF3C7;color:#B45309}
+.pb.semi-annual{background:#FCE7F3;color:#BE185D}.pb.annual{background:#EDE9FE;color:#6D28D9}
+.nb{background:none;border:none;cursor:pointer;color:var(--t3);padding:2px 3px;font-size:12px;border-radius:4px;transition:all .15s;line-height:1}
+.nb:hover{color:var(--blue);background:var(--blt)}
+.nbox{padding:6px 10px 6px 36px;background:var(--s2);border:1px solid var(--border);border-top:none;border-radius:0 0 var(--rsm) var(--rsm);margin-bottom:4px;margin-top:-4px}
+.ni{width:100%;border:1px solid var(--border);border-radius:5px;padding:5px 8px;font-size:12px;color:var(--t1);background:#fff;resize:none;font-family:inherit;outline:none;line-height:1.5}
+.ni:focus{border-color:var(--blue)}
+/* Coverage Hub */
+.cov-qr{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.qr-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rsm);padding:11px 12px;cursor:pointer;transition:all .15s}
+.qr-card:hover{box-shadow:0 4px 14px rgba(0,0,0,.09);border-color:#CBD5E1}
+.qr-icon{font-size:20px;margin-bottom:5px}.qr-label{font-size:11px;font-weight:700;color:var(--t1)}
+.qr-rec{font-size:11px;color:var(--green);font-weight:600;margin-top:2px}
+.sc-tabs{display:flex;gap:4px;margin-bottom:12px;flex-wrap:wrap}
+.sc-tab{padding:5px 11px;border-radius:20px;border:1.5px solid var(--border);background:var(--surface);color:var(--t2);font-size:12px;font-weight:500;cursor:pointer;transition:all .15s}
+.sc-tab:hover{background:var(--bg)}.sc-tab.active{background:#EDE9FE;color:#6D28D9;border-color:#C4B5FD}
+.cov-panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--rad);padding:16px}
+.cov-tip{background:#FFF7ED;border:1px solid #FED7AA;border-radius:var(--rsm);padding:10px 13px;font-size:12px;color:#92400E;margin-bottom:12px;line-height:1.6}
+.cov-items{display:flex;flex-direction:column;gap:6px}
+.cov-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:1px solid var(--border);border-radius:var(--rsm);background:var(--s2)}
+.cov-item-name{font-size:13px;font-weight:600;color:var(--t1)}
+.cov-item-detail{font-size:11px;color:var(--t2);margin-top:2px;line-height:1.5}
+.tier-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:1px}
+.tier-badge.primary,.tier-badge.best{background:#D1FAE5;color:#065F46}
+.tier-badge.good{background:#DBEAFE;color:#1E40AF}
+.tier-badge.secondary{background:#F1F5F9;color:#64748B}
+.tier-section-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--t3);margin:10px 0 5px;padding-bottom:4px;border-bottom:1px solid var(--border)}
+/* Claims */
+.claims-section{margin-top:16px}
+.claims-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.claims-hdr h3{font-size:13px;font-weight:700}
+.claims-empty{text-align:center;padding:24px;color:var(--t3);border:1.5px dashed var(--border);border-radius:var(--rsm);font-size:12px}
+.claim-row{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--rsm);margin-bottom:4px;font-size:12px;flex-wrap:wrap}
+.claim-date{color:var(--t3);font-size:11px;white-space:nowrap}
+.claim-card{font-weight:600}.claim-ben{color:var(--t2);flex:1}
+.claim-amt{font-weight:700}
+.claim-status{font-size:10px;font-weight:700;padding:2px 6px;border-radius:20px}
+.claim-status.pending{background:#FEF3C7;color:#B45309}
+.claim-status.approved{background:#D1FAE5;color:#065F46}
+.claim-status.denied{background:#FEE2E2;color:#991B1B}
+.claim-del{background:none;border:none;cursor:pointer;color:var(--t3);font-size:13px;padding:2px 4px;border-radius:4px}
+.claim-del:hover{color:#DC2626;background:#FEE2E2}
+.add-claim-form{background:var(--s2);border:1px solid var(--border);border-radius:var(--rsm);padding:12px;margin-bottom:8px;display:none}
+.add-claim-form.open{display:block}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.form-row.tri{grid-template-columns:1fr 1fr 1fr}
+.fi{width:100%;border:1px solid var(--border);border-radius:5px;padding:6px 9px;font-size:12px;color:var(--t1);background:#fff;font-family:inherit;outline:none}
+.fi:focus{border-color:var(--blue)}
+.form-label{font-size:10px;font-weight:600;color:var(--t3);margin-bottom:3px;display:block;text-transform:uppercase;letter-spacing:.4px}
+/* Util */
+.btn{padding:5px 12px;border-radius:7px;border:none;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s}
+.btn-p{background:var(--blue);color:#fff}.btn-p:hover{background:#1D4ED8}
+.btn-s{background:var(--bg);color:var(--t2);border:1px solid var(--border)}.btn-s:hover{background:var(--border)}
+.btn-v{background:#EDE9FE;color:#6D28D9;border:none}.btn-v:hover{background:#DDD6FE}
+.btn-sm{padding:4px 9px;font-size:11px}
+.green{color:var(--green)}.muted{color:var(--t3)}
+.empty{text-align:center;padding:36px 20px;color:var(--t3)}.ei{font-size:28px;margin-bottom:8px}
+/* Save indicator */
+.save-indicator{position:fixed;bottom:16px;right:16px;background:#059669;color:#fff;padding:7px 14px;border-radius:8px;font-size:12px;font-weight:600;opacity:0;transition:opacity .3s;pointer-events:none;z-index:100}
+.save-indicator.show{opacity:1}
+@media(max-width:560px){.sbar{width:145px;min-width:145px}.srow{grid-template-columns:repeat(2,1fr)}.cgrid{grid-template-columns:1fr}.cov-qr{grid-template-columns:repeat(2,1fr)}.form-row,.form-row.tri{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- Top Navigation -->
+<div class="topnav">
+  <span class="topnav-title">💳 Dayo's Card Suite</span>
+  <div style="display:flex;gap:8px">
+    <span style="background:#334155;color:#94A3B8;padding:5px 10px;border-radius:6px;font-size:12px">Benefits Tracker</span>
+    <a href="index.html" class="topnav-link">📰 News Dashboard →</a>
+  </div>
+</div>
+
+<!-- Sticky period filter header -->
+<div class="hdr">
+  <div>
+    <div class="hdr-title">Card Benefits Tracker</div>
+    <div class="hdr-sub" id="hdr-sub"></div>
+  </div>
+  <div class="ptabs" id="period-tabs">
+    <button class="ptab active" onclick="setPeriod('all')">All</button>
+    <button class="ptab" onclick="setPeriod('monthly')">Monthly</button>
+    <button class="ptab" onclick="setPeriod('quarterly')">Quarterly</button>
+    <button class="ptab" onclick="setPeriod('annual')">Annual</button>
+  </div>
+</div>
+
+<div class="layout">
+  <div class="sbar">
+    <div class="sbar-sec">
+      <div class="sbar-lbl">Views</div>
+      <div class="nav-it" id="nav-ov" onclick="setView('overview')">📊 Overview</div>
+      <div class="nav-it cov-nav" id="nav-cov" onclick="setView('coverage')">🛡️ Coverage Hub</div>
+    </div>
+    <div id="sbar-cards"></div>
+  </div>
+  <div class="main" id="main"></div>
+</div>
+
+<!-- Save confirmation toast -->
+<div class="save-indicator" id="save-toast">✓ Saved</div>
+
+<script>
+// ── CONSTANTS ────────────────────────────────────────────────────
+const ICONS={travel:'✈️',dining:'🍽️',entertainment:'🎬',shopping:'🛍️',fitness:'💪',lounge:'🏛️',insurance:'🛡️',transport:'🚗',other:'⭐'};
+const PL={monthly:'Monthly',quarterly:'Quarterly','semi-annual':'Semi-Annual',annual:'Annual'};
+const PC={monthly:'monthly',quarterly:'quarterly','semi-annual':'semi-annual',annual:'annual'};
+const ISSUERS=['American Express','Chase','Capital One','Discover','Citi','Wells Fargo','US Bank'];
+const STORAGE_KEY='dayo_card_tracker_v1';
+
+// ── STATE ────────────────────────────────────────────────────────
+let S={view:'overview',cardId:null,period:'all',openNotes:new Set(),covScenario:'rental',showClaimForm:false};
+let claims=[];
+
+// ── CARD DATA ────────────────────────────────────────────────────
+const cards=[
+ {id:'amex-plat',name:'Amex Platinum',short:'Platinum',issuer:'American Express',c1:'#1B3A6B',c2:'#2D60B0',fee:695,benefits:[
+  {id:'ap1',name:'Uber Cash',desc:'$15/mo Uber rides & Eats ($20 in December)',p:'monthly',v:15,cat:'transport',used:false,notes:''},
+  {id:'ap2',name:'Dining Credit',desc:'Grubhub, Cheesecake Factory, Goldbelly, Wine.com, Milk Bar',p:'monthly',v:10,cat:'dining',used:false,notes:''},
+  {id:'ap3',name:'Digital Entertainment',desc:'Peacock, Audible, SiriusXM, NY Times — $20/mo credit',p:'monthly',v:20,cat:'entertainment',used:false,notes:''},
+  {id:'ap4',name:'Walmart+ Membership',desc:'Monthly Walmart+ membership credit ($12.95/mo value)',p:'monthly',v:12.95,cat:'shopping',used:false,notes:''},
+  {id:'ap5',name:'Saks Fifth Avenue',desc:'$50 credit semi-annually (Jan–Jun & Jul–Dec)',p:'semi-annual',v:50,cat:'shopping',used:false,notes:''},
+  {id:'ap6',name:'Airline Fee Credit',desc:'Up to $200 on incidental fees with one chosen airline',p:'annual',v:200,cat:'travel',used:false,notes:''},
+  {id:'ap7',name:'Hotel Credit (FHR/THC)',desc:'$200 credit on Fine Hotels + Resorts prepaid stays',p:'annual',v:200,cat:'travel',used:false,notes:''},
+  {id:'ap8',name:'Equinox Credit',desc:'Up to $300 on Equinox+ or club membership',p:'annual',v:300,cat:'fitness',used:false,notes:''},
+  {id:'ap9',name:'CLEAR Plus Membership',desc:'Annual CLEAR Plus membership ($189 value)',p:'annual',v:189,cat:'travel',used:false,notes:''},
+  {id:'ap10',name:'Global Entry / TSA PreCheck',desc:'Application fee credit up to $100 (every 4.5 years)',p:'annual',v:100,cat:'travel',used:false,notes:''},
+  {id:'ap11',name:'Priority Pass Select',desc:'Unlimited visits to 1,300+ airport lounges worldwide',p:'annual',v:0,cat:'lounge',used:false,notes:''},
+  {id:'ap12',name:'Centurion Lounge Access',desc:'Unlimited access to Amex Centurion Lounges globally',p:'annual',v:0,cat:'lounge',used:false,notes:''},
+  {id:'ap13',name:'Platinum Concierge',desc:'24/7 full-service concierge — travel, dining, entertainment, lifestyle',p:'annual',v:0,cat:'other',used:false,notes:''},
+  {id:'ap14',name:'Trip Cancellation Insurance',desc:'Up to $10,000/trip for covered cancellations or interruptions',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'ap15',name:'Baggage Insurance',desc:'Up to $3,000 carry-on / $2,000 checked bags',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'ap16',name:'Car Rental Coverage',desc:'Secondary CDW on eligible rentals',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+ ]},
+ {id:'amex-bce',name:'Amex Blue Cash Everyday',short:'Blue Cash Everyday',issuer:'American Express',c1:'#0F766E',c2:'#0D9488',fee:0,benefits:[
+  {id:'bce1',name:'Disney Bundle Credit',desc:'$7/mo statement credit on eligible Disney Bundle subscription',p:'monthly',v:7,cat:'entertainment',used:false,notes:''},
+  {id:'bce2',name:'Home Chef Credit',desc:'$7/mo statement credit on Home Chef meal kit purchases',p:'monthly',v:7,cat:'dining',used:false,notes:''},
+  {id:'bce3',name:'Purchase Protection',desc:'Up to $1,000/item, 90 days against theft or damage',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'bce4',name:'Return Protection',desc:'Up to $300/item, $1,000/year if merchant won\'t accept return',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'bce5',name:'Car Rental Coverage',desc:'Secondary CDW when paid in full with card',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+ ]},
+ {id:'amex-bbp',name:'Amex Blue Business Plus',short:'Blue Business Plus',issuer:'American Express',c1:'#1E40AF',c2:'#3B82F6',fee:0,benefits:[
+  {id:'bbp1',name:'Purchase Protection',desc:'Up to $1,000/item, 90 days against theft or damage',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'bbp2',name:'Extended Warranty',desc:'Up to 1 extra year on eligible manufacturer warranties',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'bbp3',name:'Car Rental Coverage',desc:'Secondary CDW on eligible business rentals',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+ ]},
+ {id:'amex-delta',name:'Amex Delta SkyMiles Gold',short:'Delta Gold',issuer:'American Express',c1:'#7C0A02',c2:'#C41230',fee:150,benefits:[
+  {id:'dg1',name:'Delta Stays Credit',desc:'Up to $150 credit on eligible Delta Stays hotel bookings',p:'annual',v:150,cat:'travel',used:false,notes:''},
+  {id:'dg2',name:'First Checked Bag Free',desc:'Free first checked bag for you + up to 8 companions',p:'annual',v:0,cat:'travel',used:false,notes:''},
+  {id:'dg3',name:'Priority Boarding',desc:'Zone 1 / Main Cabin 1 boarding on Delta-operated flights',p:'annual',v:0,cat:'travel',used:false,notes:''},
+  {id:'dg4',name:'20% In-Flight Savings',desc:'20% back as statement credit on in-flight food, bev & audio',p:'annual',v:0,cat:'travel',used:false,notes:''},
+  {id:'dg5',name:'TakeOff 15',desc:'15% discount redeeming SkyMiles on Delta award flights',p:'annual',v:0,cat:'travel',used:false,notes:''},
+  {id:'dg6',name:'Trip Cancellation Insurance',desc:'Up to $10,000/trip for covered cancellations',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'dg7',name:'Baggage Insurance',desc:'Coverage for delayed, lost, or damaged baggage',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+ ]},
+ {id:'amex-hilton',name:'Amex Hilton Honors',short:'Hilton Honors',issuer:'American Express',c1:'#1B4F72',c2:'#2471A3',fee:0,benefits:[
+  {id:'hh1',name:'Hilton Silver Status',desc:'Automatic Silver: 20% bonus pts, 5th night free on award stays',p:'annual',v:0,cat:'travel',used:false,notes:''},
+  {id:'hh2',name:'Purchase Protection',desc:'Up to $1,000/item, 90 days against theft or damage',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'hh3',name:'Car Rental Coverage',desc:'Secondary CDW on eligible rentals',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+ ]},
+ {id:'csp',name:'Chase Sapphire Preferred',short:'Sapphire Preferred',issuer:'Chase',c1:'#0A2342',c2:'#1A4070',fee:95,benefits:[
+  {id:'csp1',name:'DoorDash Monthly Credit',desc:'$10/mo DoorDash credit (resets each month)',p:'monthly',v:10,cat:'dining',used:false,notes:''},
+  {id:'csp2',name:'Hotel Credit (Chase Travel)',desc:'$50/yr on hotel stays booked through Chase Travel portal',p:'annual',v:50,cat:'travel',used:false,notes:''},
+  {id:'csp3',name:'DashPass Membership',desc:'Complimentary DoorDash DashPass — waived delivery fees',p:'annual',v:96,cat:'dining',used:false,notes:''},
+  {id:'csp4',name:'1:1 Transfer Partners',desc:'Transfer Ultimate Rewards to 14 airline & hotel partners at 1:1',p:'annual',v:0,cat:'travel',used:false,notes:''},
+  {id:'csp5',name:'Trip Cancellation Insurance',desc:'Up to $10,000/person, $20,000/trip for covered cancellations',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'csp6',name:'Trip Delay Reimbursement',desc:'Up to $500/ticket for delays over 12 hours',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'csp7',name:'Baggage Delay Insurance',desc:'Up to $100/day for 5 days if bags delayed 6+ hours',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'csp8',name:'Secondary Car Rental Insurance',desc:'Collision damage waiver on eligible rentals',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+ ]},
+ {id:'cfu',name:'Chase Freedom Unlimited',short:'Freedom Unlimited',issuer:'Chase',c1:'#0D5C8F',c2:'#1B80C4',fee:0,benefits:[
+  {id:'cfu1',name:'Purchase Protection',desc:'Up to $500/claim, $50,000/year for theft or damage (120 days)',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'cfu2',name:'Extended Warranty',desc:'Up to 1 extra year on manufacturer warranties ≤ 3 years',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'cfu3',name:'Trip Cancellation Insurance',desc:'Up to $1,500/person, $6,000/trip when paid with card',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'cfu4',name:'Secondary Car Rental Insurance',desc:'Collision damage waiver on eligible rentals',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+ ]},
+ {id:'sw-pri',name:'Chase Southwest Priority',short:'Southwest Priority',issuer:'Chase',c1:'#003087',c2:'#0060A9',fee:149,benefits:[
+  {id:'sw1',name:'Southwest Travel Credit',desc:'$75/yr credit applied to Southwest flight purchases',p:'annual',v:75,cat:'travel',used:false,notes:''},
+  {id:'sw2',name:'Anniversary Bonus Points',desc:'7,500 Rapid Rewards points each account anniversary (~$75)',p:'annual',v:75,cat:'travel',used:false,notes:''},
+  {id:'sw3',name:'Upgraded Boarding',desc:'4 A1–A15 Upgraded Boarding passes per year',p:'annual',v:60,cat:'travel',used:false,notes:''},
+  {id:'sw4',name:'25% In-Flight Savings',desc:'25% back on in-flight WiFi, drinks, food as statement credit',p:'annual',v:0,cat:'travel',used:false,notes:''},
+  {id:'sw5',name:'Trip Cancellation Insurance',desc:'Up to $10,000/person, $20,000/trip for covered cancellations',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'sw6',name:'Baggage Delay Insurance',desc:'Up to $100/day for 3 days if bags delayed 6+ hours',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+ ]},
+ {id:'united-exp',name:'Chase United Explorer',short:'United Explorer',issuer:'Chase',c1:'#002244',c2:'#003580',fee:95,benefits:[
+  {id:'ue1',name:'United Club Passes',desc:'2 single-use United Club day passes per year',p:'annual',v:60,cat:'lounge',used:false,notes:''},
+  {id:'ue2',name:'Global Entry / TSA PreCheck',desc:'Application fee credit up to $100 every 4 years',p:'annual',v:100,cat:'travel',used:false,notes:''},
+  {id:'ue3',name:'First Checked Bag Free',desc:'Free first checked bag for you + 1 companion on same reservation',p:'annual',v:0,cat:'travel',used:false,notes:''},
+  {id:'ue4',name:'Priority Boarding',desc:'Group 2 boarding on United-operated flights',p:'annual',v:0,cat:'travel',used:false,notes:''},
+  {id:'ue5',name:'25% In-Flight Savings',desc:'25% back as statement credit on United in-flight purchases',p:'annual',v:0,cat:'travel',used:false,notes:''},
+  {id:'ue6',name:'Primary Car Rental Insurance',desc:'PRIMARY CDW — decline rental CDW, no personal insurance needed',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'ue7',name:'Trip Cancellation Insurance',desc:'Up to $10,000/person, $20,000/trip for covered cancellations',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'ue8',name:'Baggage Delay Insurance',desc:'Up to $100/day for 3 days if bags delayed 6+ hours',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'ue9',name:'Lost Luggage Reimbursement',desc:'Up to $3,000/passenger for checked or carry-on bags',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'ue10',name:'Visa Infinite Concierge',desc:'Premium Visa Infinite concierge service — travel, dining, entertainment',p:'annual',v:0,cat:'other',used:false,notes:''},
+ ]},
+ {id:'ink-cash',name:'Chase Ink Business Cash',short:'Ink Business Cash',issuer:'Chase',c1:'#1A5C1A',c2:'#2D8A2D',fee:0,benefits:[
+  {id:'ic1',name:'Purchase Protection',desc:'Up to $10,000/claim, $50,000/year for theft or damage (120 days)',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'ic2',name:'Extended Warranty',desc:'Up to 1 extra year on eligible manufacturer warranties',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'ic3',name:'Secondary Car Rental Insurance',desc:'CDW on eligible business rentals',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+ ]},
+ {id:'ink-unl',name:'Chase Ink Business Unlimited',short:'Ink Business Unlimited',issuer:'Chase',c1:'#1A3A5C',c2:'#2D5C8A',fee:0,benefits:[
+  {id:'iu1',name:'Purchase Protection',desc:'Up to $10,000/claim, $50,000/year for theft or damage (120 days)',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'iu2',name:'Extended Warranty',desc:'Up to 1 extra year on eligible manufacturer warranties',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'iu3',name:'Secondary Car Rental Insurance',desc:'CDW on eligible business rentals',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+ ]},
+ {id:'vx',name:'Capital One Venture X',short:'Venture X',issuer:'Capital One',c1:'#1A1A2E',c2:'#4A2C8A',fee:395,benefits:[
+  {id:'vx1',name:'Capital One Travel Credit',desc:'$300/yr on bookings through Capital One Travel portal',p:'annual',v:300,cat:'travel',used:false,notes:''},
+  {id:'vx2',name:'Anniversary Miles Bonus',desc:'10,000 bonus miles (~$100 value) every account anniversary',p:'annual',v:100,cat:'travel',used:false,notes:''},
+  {id:'vx3',name:'Global Entry / TSA PreCheck',desc:'Application fee credit up to $100',p:'annual',v:100,cat:'travel',used:false,notes:''},
+  {id:'vx4',name:'Priority Pass Select',desc:'Unlimited visits to 1,300+ airport lounges worldwide',p:'annual',v:0,cat:'lounge',used:false,notes:''},
+  {id:'vx5',name:'Capital One Lounge',desc:'Unlimited access + 2 complimentary guest passes/year',p:'annual',v:0,cat:'lounge',used:false,notes:''},
+  {id:'vx6',name:'Cell Phone Protection',desc:'Up to $800/claim, $1,600/year — pay phone bill with this card',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'vx7',name:'Trip Cancellation Insurance',desc:'Up to $2,000/person for covered trips',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'vx8',name:'Primary Rental Car Coverage',desc:'PRIMARY CDW — decline rental CDW, no personal insurance needed',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'vx9',name:'Lost Luggage Reimbursement',desc:'Up to $3,000 for checked and carry-on bags',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+ ]},
+ {id:'venture',name:'Capital One Venture',short:'Venture',issuer:'Capital One',c1:'#1A2E5C',c2:'#2D4F8A',fee:95,benefits:[
+  {id:'v1',name:'Global Entry / TSA PreCheck',desc:'Application fee credit up to $100 (once every 4 years)',p:'annual',v:100,cat:'travel',used:false,notes:''},
+  {id:'v2',name:'Auto Rental Collision Damage',desc:'Secondary collision and theft coverage on eligible rentals',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'v3',name:'Travel Accident Insurance',desc:'Coverage for accidental death on common carrier',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+ ]},
+ {id:'discover',name:'Discover it Card',short:'Discover it',issuer:'Discover',c1:'#D45600',c2:'#F07000',fee:0,benefits:[
+  {id:'di1',name:'5% Rotating Categories',desc:'5% on quarterly rotating categories up to $1,500 — activate each quarter!',p:'quarterly',v:75,cat:'shopping',used:false,notes:''},
+  {id:'di2',name:'Cashback Match (Year 1)',desc:'Discover matches all cash back at end of first cardmember year',p:'annual',v:0,cat:'other',used:false,notes:''},
+  {id:'di3',name:'Free FICO Score',desc:'Monthly FICO credit score on statement and in app',p:'annual',v:0,cat:'other',used:false,notes:''},
+ ]},
+ {id:'citi-cc',name:'Citi Custom Cash',short:'Custom Cash',issuer:'Citi',c1:'#003087',c2:'#0060C4',fee:0,benefits:[
+  {id:'cc1',name:'5% Top Category Rewards',desc:'Auto-earns 5% cash back on top eligible category up to $500/billing cycle',p:'monthly',v:25,cat:'other',used:false,notes:''},
+  {id:'cc2',name:'Purchase Protection',desc:'90-day coverage against damage or theft on eligible purchases',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'cc3',name:'Extended Warranty',desc:'Up to 2 extra years on eligible manufacturer warranties',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+ ]},
+ {id:'wf-ac',name:'Wells Fargo Active Cash',short:'Active Cash',issuer:'Wells Fargo',c1:'#8B0000',c2:'#B22222',fee:0,benefits:[
+  {id:'wf1',name:'Cell Phone Protection',desc:'Up to $600/claim (2 claims/yr, $25 deductible) — pay phone bill with card',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'wf2',name:'Visa Signature Concierge',desc:'24/7 concierge for travel, dining, entertainment reservations',p:'annual',v:0,cat:'other',used:false,notes:''},
+  {id:'wf3',name:'Travel & Emergency Assistance',desc:'Emergency assistance services when 100+ miles from home',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'wf4',name:'Auto Rental Collision Damage',desc:'Secondary CDW on eligible rentals (Visa Signature)',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+ ]},
+ {id:'usb-triple',name:'US Bank Business Triple Cash',short:'Triple Cash',issuer:'US Bank',c1:'#8C1A1A',c2:'#C42828',fee:0,benefits:[
+  {id:'tc1',name:'Software Subscription Credit',desc:'$100/yr credit on eligible recurring software subscriptions',p:'annual',v:100,cat:'other',used:false,notes:''},
+  {id:'tc2',name:'Purchase Protection',desc:'120-day protection against damage or theft on eligible purchases',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'tc3',name:'Extended Warranty',desc:'Doubles manufacturer warranty up to 1 additional year',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+ ]},
+ {id:'usb-altgo',name:'US Bank Altitude Go',short:'Altitude Go',issuer:'US Bank',c1:'#1A3A8C',c2:'#2851C4',fee:0,benefits:[
+  {id:'ag1',name:'Streaming Credit',desc:'$15/yr statement credit on eligible streaming service purchases',p:'annual',v:15,cat:'entertainment',used:false,notes:''},
+  {id:'ag2',name:'Purchase Protection',desc:'90-day protection against damage or theft',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+  {id:'ag3',name:'Extended Warranty',desc:'Doubles manufacturer warranty up to 1 additional year',p:'annual',v:0,cat:'insurance',used:false,notes:''},
+ ]},
+];
+
+// ── COVERAGE SCENARIOS ───────────────────────────────────────────
+const SCENARIOS=[
+ {id:'rental',icon:'🚗',title:'Renting a Car',qrRec:'United Explorer or Venture X',
+  tip:'<strong>Always decline the rental company\'s CDW insurance.</strong> With a PRIMARY coverage card, you have no personal auto insurance involvement. With secondary, your personal insurer pays first.',
+  sections:[
+   {label:'✅ Primary Coverage — Use These First',tier:'primary',items:[
+    {cid:'united-exp',detail:'Decline the rental CDW entirely — this card covers it as primary'},
+    {cid:'vx',detail:'Primary CDW — strong backup if you can\'t use United Explorer'},
+   ]},
+   {label:'⚠️ Secondary Coverage',tier:'secondary',items:[
+    {cid:'csp',detail:'Secondary CDW — personal auto insurer pays first'},
+    {cid:'cfu',detail:'Secondary CDW on eligible rentals'},
+    {cid:'amex-plat',detail:'Secondary CDW — must pay full rental with card'},
+    {cid:'amex-bce',detail:'Secondary CDW'},{cid:'amex-bbp',detail:'Secondary CDW (business)'},
+    {cid:'venture',detail:'Secondary collision and theft coverage'},
+    {cid:'ink-cash',detail:'Secondary CDW (business)'},{cid:'ink-unl',detail:'Secondary CDW (business)'},
+    {cid:'wf-ac',detail:'Secondary CDW via Visa Signature'},{cid:'amex-hilton',detail:'Secondary CDW'},
+   ]},
+  ]
+ },
+ {id:'travel',icon:'✈️',title:'Booking Flights',qrRec:'Sapphire Preferred or United Explorer',
+  tip:'<strong>Book flights with a card that has trip cancellation coverage.</strong> Chase cards offer the highest per-person limits ($10k). Keep your booking confirmation — you\'ll need it to file a claim.',
+  sections:[
+   {label:'⭐ Best — $10k/person',tier:'best',items:[
+    {cid:'csp',detail:'Trip cancel: $10k/person · Trip delay: $500/ticket · Baggage delay: $100/day'},
+    {cid:'united-exp',detail:'Trip cancel: $10k/person · Baggage delay · Lost luggage: $3k'},
+    {cid:'sw-pri',detail:'Trip cancel: $10k/person · Baggage delay: $100/day'},
+   ]},
+   {label:'👍 Good Coverage',tier:'good',items:[
+    {cid:'amex-plat',detail:'Trip cancel: $10k/trip · Baggage: $3k/$2k'},
+    {cid:'amex-delta',detail:'Trip cancel: $10k/trip · Baggage coverage'},
+    {cid:'vx',detail:'Trip cancel: $2k/person · Lost luggage: $3k'},
+   ]},
+   {label:'Secondary / Lower Limits',tier:'secondary',items:[
+    {cid:'cfu',detail:'Trip cancel: $1,500/person, $6,000/trip'},
+   ]},
+  ]
+ },
+ {id:'phone',icon:'📱',title:'Cell Phone',qrRec:'Venture X ($800/claim)',
+  tip:'<strong>Pay your monthly cell phone bill with one of these cards</strong> to activate protection — no enrollment needed.',
+  sections:[
+   {label:'Best Coverage',tier:'best',items:[{cid:'vx',detail:'$800/claim · $1,600/year · Covers theft & damage'}]},
+   {label:'Also Covered',tier:'good',items:[{cid:'wf-ac',detail:'$600/claim · 2 claims/year · $25 deductible'}]},
+  ]
+ },
+ {id:'purchase',icon:'🛒',title:'Purchase Protection',qrRec:'Ink Business Cash ($10k/claim)',
+  tip:'<strong>Pay for big-ticket items with an Ink Business card for the highest limits.</strong> Keep your receipt — you\'ll need it to file a claim.',
+  sections:[
+   {label:'⭐ Highest Limits',tier:'best',items:[
+    {cid:'ink-cash',detail:'$10,000/claim · $50,000/year · 120 days'},
+    {cid:'ink-unl',detail:'$10,000/claim · $50,000/year · 120 days'},
+   ]},
+   {label:'Strong Coverage',tier:'good',items:[
+    {cid:'cfu',detail:'$500/claim · $50,000/year · 120 days'},
+    {cid:'amex-plat',detail:'$1,000/item · 90 days + return protection'},
+    {cid:'amex-bce',detail:'$1,000/item · 90 days + return protection'},
+    {cid:'amex-bbp',detail:'$1,000/item · 90 days'},{cid:'amex-hilton',detail:'$1,000/item · 90 days'},
+   ]},
+   {label:'Secondary',tier:'secondary',items:[
+    {cid:'usb-triple',detail:'120-day protection'},{cid:'usb-altgo',detail:'90-day protection'},
+    {cid:'citi-cc',detail:'90-day coverage'},
+   ]},
+  ]
+ },
+ {id:'warranty',icon:'🔧',title:'Extended Warranty',qrRec:'Citi Custom Cash (2 extra years)',
+  tip:'<strong>Citi Custom Cash gives you the most extension (2 years).</strong> Skip the store warranty plan — use this instead.',
+  sections:[
+   {label:'⭐ 2 Extra Years',tier:'best',items:[{cid:'citi-cc',detail:'Up to 2 extra years on eligible warranties'}]},
+   {label:'1 Extra Year',tier:'good',items:[
+    {cid:'cfu',detail:'1 extra year on warranties ≤ 3 years'},{cid:'amex-plat',detail:'1 extra year'},
+    {cid:'amex-bce',detail:'1 extra year'},{cid:'amex-bbp',detail:'1 extra year'},
+    {cid:'ink-cash',detail:'1 extra year'},{cid:'ink-unl',detail:'1 extra year'},
+    {cid:'usb-triple',detail:'Doubles warranty up to 1 year'},{cid:'usb-altgo',detail:'Doubles warranty up to 1 year'},
+   ]},
+  ]
+ },
+ {id:'lounge',icon:'🏛️',title:'Airport Lounges',qrRec:'Amex Platinum (most access)',
+  tip:'<strong>You have access to three lounge networks.</strong> Centurion Lounges (Amex) are premium. Capital One Lounges have great food and showers. Priority Pass covers 1,300+ global locations.',
+  sections:[
+   {label:'Unlimited Access',tier:'best',items:[
+    {cid:'amex-plat',detail:'Priority Pass Select (1,300+ lounges) + Centurion Lounges — unlimited'},
+    {cid:'vx',detail:'Priority Pass Select + Capital One Lounges — unlimited + 2 guest passes/year'},
+   ]},
+   {label:'Limited Passes',tier:'good',items:[
+    {cid:'united-exp',detail:'2 United Club single-use day passes per year'},
+   ]},
+  ]
+ },
+ {id:'concierge',icon:'🎩',title:'Concierge',qrRec:'Amex Platinum (most capable)',
+  tip:'<strong>Massively underused.</strong> Concierge can book sold-out restaurants, source gifts, arrange travel, get event tickets — 24/7 at no extra cost.',
+  sections:[
+   {label:'Premium Concierge',tier:'best',items:[
+    {cid:'amex-plat',detail:'Platinum Concierge: travel, dining, events, lifestyle — 24/7'},
+   ]},
+   {label:'Visa Concierge',tier:'good',items:[
+    {cid:'united-exp',detail:'Visa Infinite Concierge — premium tier, 24/7'},
+    {cid:'wf-ac',detail:'Visa Signature Concierge — 24/7'},{cid:'csp',detail:'Visa Signature concierge access'},
+   ]},
+  ]
+ },
+];
+
+// ── LOCALSTORAGE ─────────────────────────────────────────────────
+function saveState(){
+  try{
+    const data={benefits:{},claims};
+    cards.forEach(c=>{
+      c.benefits.forEach(b=>{
+        if(b.used||b.notes) data.benefits[b.id]={used:b.used,notes:b.notes};
+      });
+    });
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
+    showToast();
+  }catch(e){console.warn('Save failed:',e)}
+}
+
+function loadState(){
+  try{
+    const raw=localStorage.getItem(STORAGE_KEY);
+    if(!raw)return;
+    const data=JSON.parse(raw);
+    if(data.benefits){
+      cards.forEach(c=>c.benefits.forEach(b=>{
+        if(data.benefits[b.id]){b.used=data.benefits[b.id].used||false;b.notes=data.benefits[b.id].notes||'';}
+      }));
+    }
+    if(data.claims)claims=data.claims;
+  }catch(e){console.warn('Load failed:',e)}
+}
+
+let toastTimer;
+function showToast(){
+  const t=document.getElementById('save-toast');
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),1500);
+}
+
+// ── HELPERS ──────────────────────────────────────────────────────
+function card(id){return cards.find(c=>c.id===id)}
+function fmtM(v){return v===0?'—':'$'+(v%1===0?v.toFixed(0):v.toFixed(2))}
+function pct(u,t){return t>0?Math.round(u/t*100):0}
+function sumV(bs){return bs.reduce((s,b)=>s+b.v,0)}
+function usedV(bs){return bs.filter(b=>b.used).reduce((s,b)=>s+b.v,0)}
+function annualV(c){return c.benefits.reduce((s,b)=>{
+  if(b.p==='monthly')return s+b.v*12;if(b.p==='quarterly')return s+b.v*4;
+  if(b.p==='semi-annual')return s+b.v*2;return s+b.v;
+},0)}
+function filtered(c){return S.period==='all'?c.benefits:c.benefits.filter(b=>b.p===S.period)}
+function grad(c){return`linear-gradient(135deg,${c.c1} 0%,${c.c2} 100%)`}
+function badge(p){return`<span class="pb ${PC[p]||'annual'}">${PL[p]||p}</span>`}
+function byIssuer(){const m={};cards.forEach(c=>{if(!m[c.issuer])m[c.issuer]=[];m[c.issuer].push(c)});return ISSUERS.filter(i=>m[i]).map(i=>({issuer:i,cards:m[i]}))}
+
+// ── ACTIONS ──────────────────────────────────────────────────────
+function toggleB(cid,bid){
+  const b=card(cid)?.benefits.find(b=>b.id===bid);
+  if(b){b.used=!b.used;saveState();render()}
+}
+function toggleNote(bid){S.openNotes.has(bid)?S.openNotes.delete(bid):S.openNotes.add(bid);render()}
+function setNote(cid,bid,v){
+  const b=card(cid)?.benefits.find(b=>b.id===bid);
+  if(b){b.notes=v;saveState();}
+}
+function setPeriod(p){
+  S.period=p;
+  document.querySelectorAll('.ptab').forEach((t,i)=>{t.classList.toggle('active',['all','monthly','quarterly','annual'][i]===p)});
+  renderMain();
+}
+function setView(v,cid){S.view=v;S.cardId=cid||null;render()}
+function setCovScenario(id){S.covScenario=id;renderMain()}
+function toggleClaimForm(){S.showClaimForm=!S.showClaimForm;renderMain()}
+function addClaim(){
+  const d=document.getElementById('cl-date').value;
+  const cid=document.getElementById('cl-card').value;
+  const ben=document.getElementById('cl-benefit').value;
+  const amt=document.getElementById('cl-amt').value;
+  const sta=document.getElementById('cl-status').value;
+  const note=document.getElementById('cl-note').value;
+  if(!ben.trim())return;
+  const id=Date.now();
+  claims.push({id,date:d||new Date().toISOString().slice(0,10),cardId:cid,benefit:ben,amount:amt,status:sta,note});
+  S.showClaimForm=false;saveState();renderMain();
+}
+function deleteClaim(id){claims=claims.filter(c=>c.id!==id);saveState();renderMain()}
+function updateClaimStatus(id,st){const c=claims.find(c=>c.id===id);if(c){c.status=st;saveState();renderMain()}}
+
+// ── SIDEBAR ──────────────────────────────────────────────────────
+function renderSidebar(){
+  document.getElementById('nav-ov').className='nav-it'+(S.view==='overview'?' active':'');
+  document.getElementById('nav-cov').className='nav-it cov-nav'+(S.view==='coverage'?' active':'');
+  let html='';
+  byIssuer().forEach(({issuer,cards:grp})=>{
+    html+=`<div class="sbar-sec"><div class="sbar-lbl">${issuer}</div>`;
+    grp.forEach(c=>{
+      const f=filtered(c),tv=sumV(f),uv=usedV(f),pp=pct(uv,tv);
+      const act=S.view==='card'&&S.cardId===c.id;
+      html+=`<div class="cit${act?' active':''}" onclick="setView('card','${c.id}')">
+        <div class="cit-name"><span class="dot" style="background:${c.c1}"></span>${c.short}</div>
+        <div class="cit-fee">${c.fee>0?'$'+c.fee+'/yr':'No fee'}</div>
+        <div class="cpb"><div class="cpf" style="width:${pp}%"></div></div>
+        <div class="cps"><span class="green" style="font-weight:600">${fmtM(uv)}</span><span class="muted">${pp}%</span></div>
+      </div>`;
+    });
+    html+='</div>';
+  });
+  document.getElementById('sbar-cards').innerHTML=html;
+}
+
+// ── BENEFIT ROW ──────────────────────────────────────────────────
+function bRow(cid,b,showCard,cshort){
+  const noteOpen=S.openNotes.has(b.id);
+  const tag=showCard?` <span style="font-weight:400;color:var(--t3);font-size:10px">· ${cshort}</span>`:'';
+  return`<div>
+    <div class="br${b.used?' used':''}" onclick="toggleB('${cid}','${b.id}')">
+      <div class="bck${b.used?' on':''}">${b.used?'✓':''}</div>
+      <div class="bi">${ICONS[b.cat]||'⭐'}</div>
+      <div class="binfo">
+        <div class="bn">${b.name}${tag}</div>
+        <div class="bd">${b.desc}</div>
+        ${b.notes?`<div class="bnp">📝 ${b.notes}</div>`:''}
+      </div>
+      <div class="brt">
+        ${badge(b.p)}
+        <div class="bv${b.v===0?' z':''}">${b.v>0?'$'+b.v:'Incl.'}</div>
+        <button class="nb" onclick="event.stopPropagation();toggleNote('${b.id}')" title="Note">📝</button>
+      </div>
+    </div>
+    ${noteOpen?`<div class="nbox"><textarea class="ni" rows="2" placeholder="Note (e.g. used at JFK Centurion Apr 5)…" onchange="setNote('${cid}','${b.id}',this.value)">${b.notes||''}</textarea></div>`:''}
+  </div>`;
+}
+
+function section(title,bs,cid,showCard,cardMap){
+  const tv=sumV(bs),uv=usedV(bs);
+  const vs=tv>0?`$${uv.toFixed(0)} / $${tv.toFixed(0)} used`:`${bs.length} benefit${bs.length!==1?'s':''}`;
+  return`<div class="sec"><div class="sec-t"><span>${title}</span><span class="sec-v">${vs}</span></div>${bs.map(b=>bRow(cid||b._cid,b,showCard,cardMap?cardMap[b._cid]:'')).join('')}</div>`;
+}
+
+// ── OVERVIEW ─────────────────────────────────────────────────────
+function renderOverview(){
+  const allB=cards.flatMap(c=>c.benefits);
+  const fB=S.period==='all'?allB:allB.filter(b=>b.p===S.period);
+  const tv=sumV(fB),uv=usedV(fB);
+  const totalFee=cards.reduce((s,c)=>s+c.fee,0);
+  const usedCt=allB.filter(b=>b.used).length;
+  const totalAnnV=cards.reduce((s,c)=>s+annualV(c),0);
+  const grid=cards.map(c=>{
+    const f=filtered(c),cv=sumV(f),cu=usedV(f),p=pct(cu,cv),av=annualV(c);
+    return`<div class="oc" onclick="setView('card','${c.id}')">
+      <div class="oc-hdr" style="background:${grad(c)}"><div class="oc-name">${c.name}</div><div class="oc-fee">${c.fee>0?'$'+c.fee+'/yr · ':'No fee · '}${c.issuer}</div></div>
+      <div class="oc-body"><div class="opb"><div class="opf" style="width:${p}%"></div></div>
+      <div class="osts">
+        <div class="os"><div class="os-v">$${av.toLocaleString()}</div><div class="os-l">annual value</div></div>
+        <div class="os"><div class="os-v green">$${cu.toFixed(0)}</div><div class="os-l">used</div></div>
+        <div class="os"><div class="os-v">${p}%</div><div class="os-l">captured</div></div>
+        <div class="os"><div class="os-v">${f.length}</div><div class="os-l">benefits</div></div>
+      </div></div></div>`;
+  }).join('');
+  const periods=S.period==='all'?['monthly','semi-annual','quarterly','annual']:[S.period];
+  const cardMap=Object.fromEntries(cards.map(c=>[c.id,c.short]));
+  let lists='';
+  periods.forEach(per=>{
+    const bs=cards.flatMap(c=>c.benefits.filter(b=>b.p===per).map(b=>({...b,_cid:c.id})));
+    if(!bs.length)return;
+    lists+=section(PL[per]||per,bs,null,true,cardMap);
+  });
+  return`<div class="srow">
+    <div class="sc"><div class="sc-l">Annual Fees</div><div class="sc-v">$${totalFee.toLocaleString()}</div><div class="sc-s">${cards.length} cards</div></div>
+    <div class="sc"><div class="sc-l">Est. Annual Value</div><div class="sc-v">$${totalAnnV.toLocaleString()}</div><div class="sc-s">monetary benefits</div></div>
+    <div class="sc"><div class="sc-l">Used${S.period!=='all'?' ('+PL[S.period]+')':''}</div><div class="sc-v green">$${uv.toFixed(0)}</div><div class="sc-s">${pct(uv,tv)}% captured</div></div>
+    <div class="sc"><div class="sc-l">Benefits Used</div><div class="sc-v">${usedCt}/${allB.length}</div><div class="sc-s">across all cards</div></div>
+  </div><div class="cgrid">${grid}</div>${lists}`;
+}
+
+// ── CARD DETAIL ───────────────────────────────────────────────────
+function renderCard(cid){
+  const c=card(cid);if(!c)return'<div class="empty">Card not found</div>';
+  const f=filtered(c),tv=sumV(f),uv=usedV(f),av=annualV(c);
+  const usedCt=c.benefits.filter(b=>b.used).length;
+  const periods=S.period==='all'?['monthly','semi-annual','quarterly','annual']:[S.period];
+  let lists='';
+  periods.forEach(per=>{const bs=c.benefits.filter(b=>b.p===per);if(!bs.length)return;lists+=section(PL[per]||per,bs,cid,false,null)});
+  return`<div class="cdh" style="background:${grad(c)}">
+    <div class="cdh-name">${c.name}</div>
+    <div class="cdh-fee">${c.fee>0?'$'+c.fee+'/yr annual fee':'No annual fee'} · ${c.issuer}</div>
+    <div class="cdh-sts">
+      <div><div class="cdhs-v">$${av.toLocaleString()}</div><div class="cdhs-l">Est. annual value</div></div>
+      <div><div class="cdhs-v">$${uv.toFixed(0)}</div><div class="cdhs-l">Used${S.period!=='all'?' (filtered)':''}</div></div>
+      <div><div class="cdhs-v">${pct(uv,tv)}%</div><div class="cdhs-l">Captured</div></div>
+      <div><div class="cdhs-v">${usedCt}/${c.benefits.length}</div><div class="cdhs-l">Benefits used</div></div>
+    </div>
+  </div>${lists||`<div class="empty"><div class="ei">🎉</div><div>No benefits for this filter</div></div>`}`;
+}
+
+// ── COVERAGE HUB ─────────────────────────────────────────────────
+function renderCoverage(){
+  const sc=SCENARIOS.find(s=>s.id===S.covScenario)||SCENARIOS[0];
+  const qr=SCENARIOS.map(s=>`<div class="qr-card" onclick="setCovScenario('${s.id}')">
+    <div class="qr-icon">${s.icon}</div><div class="qr-label">${s.title}</div>
+    <div class="qr-rec">→ ${s.qrRec}</div></div>`).join('');
+  const tabs=SCENARIOS.map(s=>`<button class="sc-tab${s.id===S.covScenario?' active':''}" onclick="setCovScenario('${s.id}')">${s.icon} ${s.title}</button>`).join('');
+  let itemsHtml='';
+  sc.sections.forEach(sec=>{
+    itemsHtml+=`<div class="tier-section-label">${sec.label}</div>`;
+    sec.items.forEach(item=>{
+      const c=card(item.cid);if(!c)return;
+      itemsHtml+=`<div class="cov-item">
+        <span class="dot" style="background:${c.c1};margin-top:4px;width:10px;height:10px;flex-shrink:0"></span>
+        <div style="flex:1;min-width:0">
+          <div class="cov-item-name">${c.name} <span style="font-size:10px;color:var(--t3);font-weight:400">· ${c.fee>0?'$'+c.fee+'/yr':'No fee'}</span></div>
+          <div class="cov-item-detail">${item.detail}</div>
+        </div>
+        <span class="tier-badge ${sec.tier}">${sec.tier==='best'?'Best':sec.tier==='primary'?'Primary':sec.tier==='good'?'Good':'Secondary'}</span>
+      </div>`;
+    });
+  });
+  const cardOpts=cards.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');
+  const claimRows=claims.length===0
+    ?`<div class="claims-empty">No claims logged yet.</div>`
+    :claims.map(cl=>{
+      const c=card(cl.cardId);
+      return`<div class="claim-row">
+        <span class="claim-date">${cl.date}</span>
+        <span class="claim-card" style="color:${c?.c1||'#333'}">${c?.short||cl.cardId}</span>
+        <span class="claim-ben">${cl.benefit}${cl.note?` — ${cl.note}`:''}</span>
+        ${cl.amount?`<span class="claim-amt">$${cl.amount}</span>`:''}
+        <select class="claim-status ${cl.status}" onchange="updateClaimStatus(${cl.id},this.value)" style="border:none;background:none;font-size:10px;font-weight:700;cursor:pointer">
+          <option value="pending" ${cl.status==='pending'?'selected':''}>Pending</option>
+          <option value="approved" ${cl.status==='approved'?'selected':''}>Approved</option>
+          <option value="denied" ${cl.status==='denied'?'selected':''}>Denied</option>
+        </select>
+        <button class="claim-del" onclick="deleteClaim(${cl.id})">✕</button>
+      </div>`;
+    }).join('');
+  const claimForm=`<div class="add-claim-form${S.showClaimForm?' open':''}">
+    <div class="form-row tri">
+      <div><label class="form-label">Date</label><input class="fi" type="date" id="cl-date" value="${new Date().toISOString().slice(0,10)}"></div>
+      <div><label class="form-label">Card</label><select class="fi" id="cl-card">${cardOpts}</select></div>
+      <div><label class="form-label">Status</label><select class="fi" id="cl-status"><option value="pending">Pending</option><option value="approved">Approved</option><option value="denied">Denied</option></select></div>
+    </div>
+    <div class="form-row">
+      <div><label class="form-label">Benefit / Coverage</label><input class="fi" type="text" id="cl-benefit" placeholder="e.g. Trip Cancellation — Delta flight"></div>
+      <div><label class="form-label">Amount ($)</label><input class="fi" type="number" id="cl-amt" placeholder="450"></div>
+    </div>
+    <div style="margin-bottom:8px"><label class="form-label">Notes</label><input class="fi" type="text" id="cl-note" placeholder="e.g. Filed online Apr 10, awaiting review"></div>
+    <div style="display:flex;gap:6px">
+      <button class="btn btn-p btn-sm" onclick="addClaim()">Save Claim</button>
+      <button class="btn btn-s btn-sm" onclick="toggleClaimForm()">Cancel</button>
+    </div>
+  </div>`;
+  return`<div>
+    <div style="margin-bottom:12px">
+      <div style="font-size:16px;font-weight:800;color:var(--t1);margin-bottom:2px">🛡️ Coverage Hub</div>
+      <div style="font-size:12px;color:var(--t3)">Scenario-based guide — which card to use and when</div>
+    </div>
+    <div style="font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.7px;margin-bottom:6px">Quick Reference</div>
+    <div class="cov-qr">${qr}</div>
+    <div class="sc-tabs">${tabs}</div>
+    <div class="cov-panel"><div class="cov-tip">${sc.tip}</div><div class="cov-items">${itemsHtml}</div></div>
+    <div class="claims-section">
+      <div class="claims-hdr"><h3>📋 Claims & Coverage Log</h3>
+        <button class="btn btn-v btn-sm" onclick="toggleClaimForm()">${S.showClaimForm?'✕ Cancel':'+ Log a Claim'}</button>
+      </div>
+      ${claimForm}${claimRows}
+    </div>
+  </div>`;
+}
+
+// ── MAIN RENDER ───────────────────────────────────────────────────
+function renderMain(){
+  const m=document.getElementById('main');
+  document.getElementById('period-tabs').style.display=S.view==='coverage'?'none':'flex';
+  if(S.view==='overview')m.innerHTML=renderOverview();
+  else if(S.view==='card')m.innerHTML=renderCard(S.cardId);
+  else if(S.view==='coverage')m.innerHTML=renderCoverage();
+}
+function render(){renderSidebar();renderMain()}
+
+// Init
+const now=new Date();
+const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const q=Math.ceil((now.getMonth()+1)/3);
+document.getElementById('hdr-sub').textContent=`${months[now.getMonth()]} ${now.getFullYear()} · Q${q} · Changes saved to this browser`;
+loadState();
+render();
+</script>
+</body>
+</html>
