@@ -35,7 +35,7 @@ from google.genai.errors import ServerError, ClientError
 # ── CARD PORTFOLIO ────────────────────────────────────────────────
 CARDS = [
     # (display name, issuer, annual fee)
-    ("Amex Platinum",                "American Express",  695),
+    ("Amex Platinum",                "American Express",  895),  # fee raised Sep 2025
     ("Amex Blue Cash Everyday",      "American Express",    0),
     ("Amex Blue Business Plus",      "American Express",    0),
     ("Amex Delta SkyMiles Gold",     "American Express",  150),
