@@ -220,7 +220,7 @@ const cards=[
  ]},
  {id:'amex-bce',name:'Amex Blue Cash Everyday',short:'Blue Cash Everyday',issuer:'American Express',c1:'#0F766E',c2:'#0D9488',fee:0,benefits:[
   {id:'bce1',name:'Disney Bundle Credit',desc:'$7/mo statement credit on eligible Disney Bundle subscription',p:'monthly',v:7,cat:'entertainment',used:false,notes:''},
-  {id:'bce2',name:'Home Chef Credit',desc:'$7/mo statement credit on Home Chef meal kit purchases',p:'monthly',v:7,cat:'dining',used:false,notes:''},
+  {id:'bce2',name:'Home Chef Credit',desc:'$15/mo statement credit on eligible Home Chef meal kit subscription purchases',p:'monthly',v:15,cat:'dining',used:false,notes:''},
   {id:'bce3',name:'Purchase Protection',desc:'Up to $1,000/item, 90 days against theft or damage',p:'annual',v:0,cat:'insurance',used:false,notes:''},
   {id:'bce4',name:'Return Protection',desc:'Up to $300/item, $1,000/year if merchant won\'t accept return',p:'annual',v:0,cat:'insurance',used:false,notes:''},
   {id:'bce5',name:'Car Rental Coverage',desc:'Secondary CDW when paid in full with card',p:'annual',v:0,cat:'insurance',used:false,notes:''},
@@ -231,7 +231,7 @@ const cards=[
   {id:'bbp3',name:'Car Rental Coverage',desc:'Secondary CDW on eligible business rentals',p:'annual',v:0,cat:'insurance',used:false,notes:''},
  ]},
  {id:'amex-delta',name:'Amex Delta SkyMiles Gold',short:'Delta Gold',issuer:'American Express',c1:'#7C0A02',c2:'#C41230',fee:150,benefits:[
-  {id:'dg1',name:'Delta Stays Credit',desc:'Up to $150 credit on eligible Delta Stays hotel bookings',p:'annual',v:150,cat:'travel',used:false,notes:''},
+  {id:'dg1',name:'Delta Stays Credit',desc:'Up to $100/yr credit on eligible Delta Stays prepaid hotel or vacation rental bookings through delta.com',p:'annual',v:100,cat:'travel',used:false,notes:''},
   {id:'dg2',name:'First Checked Bag Free',desc:'Free first checked bag for you + up to 8 companions',p:'annual',v:0,cat:'travel',used:false,notes:''},
   {id:'dg3',name:'Priority Boarding',desc:'Zone 1 / Main Cabin 1 boarding on Delta-operated flights',p:'annual',v:0,cat:'travel',used:false,notes:''},
   {id:'dg4',name:'20% In-Flight Savings',desc:'20% back as statement credit on in-flight food, bev & audio',p:'annual',v:0,cat:'travel',used:false,notes:''},
@@ -245,7 +245,7 @@ const cards=[
   {id:'hh3',name:'Car Rental Coverage',desc:'Secondary CDW on eligible rentals',p:'annual',v:0,cat:'insurance',used:false,notes:''},
  ]},
  {id:'csp',name:'Chase Sapphire Preferred',short:'Sapphire Preferred',issuer:'Chase',c1:'#0A2342',c2:'#1A4070',fee:95,benefits:[
-  {id:'csp1',name:'DoorDash Monthly Credit',desc:'$10/mo DoorDash credit (resets each month)',p:'monthly',v:10,cat:'dining',used:false,notes:''},
+  {id:'csp1',name:'DoorDash Monthly Promo',desc:'$10/mo DoorDash promo credit for non-restaurant orders (groceries, retail) — resets monthly, DashPass must be activated',p:'monthly',v:10,cat:'dining',used:false,notes:''},
   {id:'csp2',name:'Hotel Credit (Chase Travel)',desc:'$50/yr on hotel stays booked through Chase Travel portal',p:'annual',v:50,cat:'travel',used:false,notes:''},
   {id:'csp3',name:'DashPass Membership',desc:'Complimentary DoorDash DashPass — waived delivery fees',p:'annual',v:96,cat:'dining',used:false,notes:''},
   {id:'csp4',name:'1:1 Transfer Partners',desc:'Transfer Ultimate Rewards to 14 airline & hotel partners at 1:1',p:'annual',v:0,cat:'travel',used:false,notes:''},
@@ -260,11 +260,14 @@ const cards=[
   {id:'cfu3',name:'Trip Cancellation Insurance',desc:'Up to $1,500/person, $6,000/trip when paid with card',p:'annual',v:0,cat:'insurance',used:false,notes:''},
   {id:'cfu4',name:'Secondary Car Rental Insurance',desc:'Collision damage waiver on eligible rentals',p:'annual',v:0,cat:'insurance',used:false,notes:''},
  ]},
- {id:'sw-pri',name:'Chase Southwest Priority',short:'Southwest Priority',issuer:'Chase',c1:'#003087',c2:'#0060A9',fee:149,benefits:[
+ {id:'sw-pri',name:'Chase Southwest Priority',short:'Southwest Priority',issuer:'Chase',c1:'#003087',c2:'#0060A9',fee:229,benefits:[
   {id:'sw1',name:'Southwest Travel Credit',desc:'$75/yr credit applied to Southwest flight purchases',p:'annual',v:75,cat:'travel',used:false,notes:''},
   {id:'sw2',name:'Anniversary Bonus Points',desc:'7,500 Rapid Rewards points each account anniversary (~$75)',p:'annual',v:75,cat:'travel',used:false,notes:''},
-  {id:'sw3',name:'Upgraded Boarding',desc:'4 A1–A15 Upgraded Boarding passes per year',p:'annual',v:60,cat:'travel',used:false,notes:''},
+  {id:'sw3',name:'Upgraded Boarding',desc:'4 A1–A15 Upgraded Boarding passes per year (A1–A15 priority)',p:'annual',v:60,cat:'travel',used:false,notes:''},
   {id:'sw4',name:'25% In-Flight Savings',desc:'25% back on in-flight WiFi, drinks, food as statement credit',p:'annual',v:0,cat:'travel',used:false,notes:''},
+  {id:'sw7',name:'Free First Checked Bag',desc:'Free first checked bag for cardmember + up to 8 companions on same reservation',p:'annual',v:0,cat:'travel',used:false,notes:''},
+  {id:'sw8',name:'Seat Selection at Booking',desc:'Standard or Preferred seat selection at time of booking for cardmember + up to 8 passengers; Extra Legroom seat upgrades within 48 hrs of departure (2026 flights)',p:'annual',v:0,cat:'travel',used:false,notes:''},
+  {id:'sw9',name:'DashPass Membership',desc:'Complimentary DoorDash DashPass 12 months (activate by 12/31/2027)',p:'annual',v:96,cat:'dining',used:false,notes:''},
   {id:'sw5',name:'Trip Cancellation Insurance',desc:'Up to $10,000/person, $20,000/trip for covered cancellations',p:'annual',v:0,cat:'insurance',used:false,notes:''},
   {id:'sw6',name:'Baggage Delay Insurance',desc:'Up to $100/day for 3 days if bags delayed 6+ hours',p:'annual',v:0,cat:'insurance',used:false,notes:''},
  ]},
@@ -295,7 +298,7 @@ const cards=[
   {id:'vx2',name:'Anniversary Miles Bonus',desc:'10,000 bonus miles (~$100 value) every account anniversary',p:'annual',v:100,cat:'travel',used:false,notes:''},
   {id:'vx3',name:'Global Entry / TSA PreCheck',desc:'Application fee credit up to $100',p:'annual',v:100,cat:'travel',used:false,notes:''},
   {id:'vx4',name:'Priority Pass Select',desc:'Unlimited visits to 1,300+ airport lounges worldwide',p:'annual',v:0,cat:'lounge',used:false,notes:''},
-  {id:'vx5',name:'Capital One Lounge',desc:'Unlimited access + 2 complimentary guest passes/year',p:'annual',v:0,cat:'lounge',used:false,notes:''},
+  {id:'vx5',name:'Capital One Lounge',desc:'Unlimited primary cardholder access. As of Feb 2026: NO free guests (unless $75k/yr spend). Guest fees: $45/adult, $25/ages 2–17. Priority Pass guests also now $35/visit.',p:'annual',v:0,cat:'lounge',used:false,notes:''},
   {id:'vx6',name:'Cell Phone Protection',desc:'Up to $800/claim, $1,600/year — pay phone bill with this card',p:'annual',v:0,cat:'insurance',used:false,notes:''},
   {id:'vx7',name:'Trip Cancellation Insurance',desc:'Up to $2,000/person for covered trips',p:'annual',v:0,cat:'insurance',used:false,notes:''},
   {id:'vx8',name:'Primary Rental Car Coverage',desc:'PRIMARY CDW — decline rental CDW, no personal insurance needed',p:'annual',v:0,cat:'insurance',used:false,notes:''},
@@ -307,7 +310,7 @@ const cards=[
   {id:'v3',name:'Travel Accident Insurance',desc:'Coverage for accidental death on common carrier',p:'annual',v:0,cat:'insurance',used:false,notes:''},
  ]},
  {id:'discover',name:'Discover it Card',short:'Discover it',issuer:'Discover',c1:'#D45600',c2:'#F07000',fee:0,benefits:[
-  {id:'di1',name:'5% Rotating Categories',desc:'5% on quarterly rotating categories up to $1,500 — activate each quarter!',p:'quarterly',v:75,cat:'shopping',used:false,notes:''},
+  {id:'di1',name:'5% Rotating Categories',desc:'5% on quarterly rotating categories up to $1,500 ($75 max) — must activate at discover.com/activate each quarter! Q2 2026 (Apr–Jun): Restaurants & Home Improvement Stores',p:'quarterly',v:75,cat:'shopping',used:false,notes:''},
   {id:'di2',name:'Cashback Match (Year 1)',desc:'Discover matches all cash back at end of first cardmember year',p:'annual',v:0,cat:'other',used:false,notes:''},
   {id:'di3',name:'Free FICO Score',desc:'Monthly FICO credit score on statement and in app',p:'annual',v:0,cat:'other',used:false,notes:''},
  ]},
@@ -411,11 +414,11 @@ const SCENARIOS=[
   ]
  },
  {id:'lounge',icon:'🏛️',title:'Airport Lounges',qrRec:'Amex Platinum (most access)',
-  tip:'<strong>You have access to three lounge networks.</strong> Centurion Lounges (Amex) are premium. Capital One Lounges have great food and showers. Priority Pass covers 1,300+ global locations.',
+  tip:'<strong>You have access to three lounge networks.</strong> Centurion Lounges (Amex) are premium. Capital One Lounges have great food and showers. Priority Pass covers 1,300+ global locations. Note: as of Feb 2026, Venture X no longer includes free guests — $45/person at Capital One, $35/person at Priority Pass.',
   sections:[
    {label:'Unlimited Access',tier:'best',items:[
     {cid:'amex-plat',detail:'Priority Pass Select (1,300+ lounges) + Centurion Lounges — unlimited'},
-    {cid:'vx',detail:'Priority Pass Select + Capital One Lounges — unlimited + 2 guest passes/year'},
+    {cid:'vx',detail:'Priority Pass Select + Capital One Lounges — unlimited (primary cardholder). Note: guest fees now apply — $45 Capital One, $35 Priority Pass (as of Feb 2026)'},
    ]},
    {label:'Limited Passes',tier:'good',items:[
     {cid:'united-exp',detail:'2 United Club single-use day passes per year'},

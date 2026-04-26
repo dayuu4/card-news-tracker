@@ -42,7 +42,7 @@ CARDS = [
     ("Amex Hilton Honors",           "American Express",    0),
     ("Chase Sapphire Preferred",     "Chase",              95),
     ("Chase Freedom Unlimited",      "Chase",               0),
-    ("Chase Southwest Priority",     "Chase",             149),
+    ("Chase Southwest Priority",     "Chase",             229),
     ("Chase United Explorer",        "Chase",              95),
     ("Chase Ink Business Cash",      "Chase",               0),
     ("Chase Ink Business Unlimited", "Chase",               0),
