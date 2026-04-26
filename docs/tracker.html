@@ -207,7 +207,7 @@ const cards=[
   {id:'ap6',name:'Airline Fee Credit',desc:'Up to $200 on incidental fees with one chosen airline (enroll first)',p:'annual',v:200,cat:'travel',used:false,notes:''},
   {id:'ap3',name:'Digital Entertainment',desc:'Up to $300/yr — Disney+, Hulu, ESPN+, Peacock, Audible, SiriusXM, NY Times',p:'annual',v:300,cat:'entertainment',used:false,notes:''},
   {id:'ap9',name:'CLEAR Plus Membership',desc:'Annual CLEAR Plus membership ($189 value)',p:'annual',v:189,cat:'travel',used:false,notes:''},
-  {id:'ap10',name:'Global Entry / TSA PreCheck',desc:'Application fee credit up to $100 (every 4.5 years)',p:'annual',v:100,cat:'travel',used:false,notes:''},
+  {id:'ap10',name:'Global Entry / TSA PreCheck',desc:'Application fee credit up to $120 for Global Entry or $85 for TSA PreCheck (every 4–4.5 years)',p:'annual',v:120,cat:'travel',used:false,notes:''},
   {id:'ap11',name:'Priority Pass Select',desc:'Unlimited visits to 1,550+ airport lounges worldwide',p:'annual',v:0,cat:'lounge',used:false,notes:''},
   {id:'ap12',name:'Centurion Lounge Access',desc:'Unlimited access to Amex Centurion Lounges globally',p:'annual',v:0,cat:'lounge',used:false,notes:''},
   {id:'ap-delta',name:'Delta Sky Club Visits',desc:'10 complimentary Delta Sky Club visits per year (when flying Delta)',p:'annual',v:0,cat:'lounge',used:false,notes:''},
@@ -271,9 +271,11 @@ const cards=[
   {id:'sw5',name:'Trip Cancellation Insurance',desc:'Up to $10,000/person, $20,000/trip for covered cancellations',p:'annual',v:0,cat:'insurance',used:false,notes:''},
   {id:'sw6',name:'Baggage Delay Insurance',desc:'Up to $100/day for 3 days if bags delayed 6+ hours',p:'annual',v:0,cat:'insurance',used:false,notes:''},
  ]},
- {id:'united-exp',name:'Chase United Explorer',short:'United Explorer',issuer:'Chase',c1:'#002244',c2:'#003580',fee:95,benefits:[
-  {id:'ue1',name:'United Club Passes',desc:'2 single-use United Club day passes per year',p:'annual',v:60,cat:'lounge',used:false,notes:''},
-  {id:'ue2',name:'Global Entry / TSA PreCheck',desc:'Application fee credit up to $100 every 4 years',p:'annual',v:100,cat:'travel',used:false,notes:''},
+ {id:'united-exp',name:'Chase United Explorer',short:'United Explorer',issuer:'Chase',c1:'#002244',c2:'#003580',fee:150,benefits:[
+  {id:'ue1',name:'United Club Passes',desc:'2 single-use United Club day passes per year (primary cardholder or authorized user must be present)',p:'annual',v:60,cat:'lounge',used:false,notes:''},
+  {id:'ue2',name:'Global Entry / TSA PreCheck',desc:'Application fee credit up to $120 (Global Entry) or $85 (TSA PreCheck) every 4 years',p:'annual',v:120,cat:'travel',used:false,notes:''},
+  {id:'ue11',name:'United TravelBank Credit',desc:'$100 in United TravelBank cash after spending $10,000 on purchases in a calendar year',p:'annual',v:100,cat:'travel',used:false,notes:''},
+  {id:'ue12',name:'Instacart+ Monthly Credit',desc:'$10/mo statement credit on Instacart purchases ($120/yr value)',p:'monthly',v:10,cat:'shopping',used:false,notes:''},
   {id:'ue3',name:'First Checked Bag Free',desc:'Free first checked bag for you + 1 companion on same reservation',p:'annual',v:0,cat:'travel',used:false,notes:''},
   {id:'ue4',name:'Priority Boarding',desc:'Group 2 boarding on United-operated flights',p:'annual',v:0,cat:'travel',used:false,notes:''},
   {id:'ue5',name:'25% In-Flight Savings',desc:'25% back as statement credit on United in-flight purchases',p:'annual',v:0,cat:'travel',used:false,notes:''},
@@ -296,7 +298,7 @@ const cards=[
  {id:'vx',name:'Capital One Venture X',short:'Venture X',issuer:'Capital One',c1:'#1A1A2E',c2:'#4A2C8A',fee:395,benefits:[
   {id:'vx1',name:'Capital One Travel Credit',desc:'$300/yr on bookings through Capital One Travel portal',p:'annual',v:300,cat:'travel',used:false,notes:''},
   {id:'vx2',name:'Anniversary Miles Bonus',desc:'10,000 bonus miles (~$100 value) every account anniversary',p:'annual',v:100,cat:'travel',used:false,notes:''},
-  {id:'vx3',name:'Global Entry / TSA PreCheck',desc:'Application fee credit up to $100',p:'annual',v:100,cat:'travel',used:false,notes:''},
+  {id:'vx3',name:'Global Entry / TSA PreCheck',desc:'Application fee credit up to $120 (Global Entry) or $85 (TSA PreCheck)',p:'annual',v:120,cat:'travel',used:false,notes:''},
   {id:'vx4',name:'Priority Pass Select',desc:'Unlimited visits to 1,300+ airport lounges worldwide',p:'annual',v:0,cat:'lounge',used:false,notes:''},
   {id:'vx5',name:'Capital One Lounge',desc:'Unlimited primary cardholder access. As of Feb 2026: NO free guests (unless $75k/yr spend). Guest fees: $45/adult, $25/ages 2–17. Priority Pass guests also now $35/visit.',p:'annual',v:0,cat:'lounge',used:false,notes:''},
   {id:'vx6',name:'Cell Phone Protection',desc:'Up to $800/claim, $1,600/year — pay phone bill with this card',p:'annual',v:0,cat:'insurance',used:false,notes:''},
@@ -305,7 +307,7 @@ const cards=[
   {id:'vx9',name:'Lost Luggage Reimbursement',desc:'Up to $3,000 for checked and carry-on bags',p:'annual',v:0,cat:'insurance',used:false,notes:''},
  ]},
  {id:'venture',name:'Capital One Venture',short:'Venture',issuer:'Capital One',c1:'#1A2E5C',c2:'#2D4F8A',fee:95,benefits:[
-  {id:'v1',name:'Global Entry / TSA PreCheck',desc:'Application fee credit up to $100 (once every 4 years)',p:'annual',v:100,cat:'travel',used:false,notes:''},
+  {id:'v1',name:'Global Entry / TSA PreCheck',desc:'Application fee credit up to $120 (Global Entry) or $85 (TSA PreCheck), once every 4 years',p:'annual',v:120,cat:'travel',used:false,notes:''},
   {id:'v2',name:'Auto Rental Collision Damage',desc:'Secondary collision and theft coverage on eligible rentals',p:'annual',v:0,cat:'insurance',used:false,notes:''},
   {id:'v3',name:'Travel Accident Insurance',desc:'Coverage for accidental death on common carrier',p:'annual',v:0,cat:'insurance',used:false,notes:''},
  ]},
@@ -343,7 +345,7 @@ const SCENARIOS=[
   tip:'<strong>Always decline the rental company\'s CDW insurance.</strong> With a PRIMARY coverage card, you have no personal auto insurance involvement. With secondary, your personal insurer pays first.',
   sections:[
    {label:'✅ Primary Coverage — Use These First',tier:'primary',items:[
-    {cid:'united-exp',detail:'Decline the rental CDW entirely — this card covers it as primary'},
+    {cid:'united-exp',detail:'Decline the rental CDW entirely — this card covers it as primary (card fee now $150/yr)'},
     {cid:'vx',detail:'Primary CDW — strong backup if you can\'t use United Explorer'},
    ]},
    {label:'⚠️ Secondary Coverage',tier:'secondary',items:[
