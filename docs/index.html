@@ -3,478 +3,440 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Card News & Updates - June 2026</title>
+    <title>💳 Card News & Updates - July 2026</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background-color: #EEF2F7;
             margin: 0;
             padding: 20px;
-            color: #333;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            box-sizing: border-box;
         }
-        .container {
+        .dashboard-container {
             max-width: 880px;
-            margin: 0 auto;
+            width: 100%;
             background-color: #EEF2F7;
+            padding: 0;
+            box-sizing: border-box;
         }
         header {
             text-align: center;
             margin-bottom: 30px;
         }
-        header h1 {
-            color: #1B3A6B;
+        h1 {
+            font-size: 2.5em;
+            color: #1A1A2E;
             margin-bottom: 5px;
         }
-        header h2 {
-            color: #555;
-            font-weight: normal;
-            margin-top: 0;
+        .subtitle {
             font-size: 1.2em;
+            color: #555;
+            margin-bottom: 15px;
         }
-        .chip {
+        .powered-by {
+            font-size: 0.8em;
+            color: #777;
+            background-color: #E0E6ED;
+            padding: 5px 10px;
+            border-radius: 15px;
             display: inline-block;
-            background-color: #fff;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            margin: 0 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            border: 1px solid #ddd;
         }
-        .action-required {
+        .action-required-banner {
             background-color: #FFF7ED;
             border-left: 4px solid #D97706;
-            color: #92400E;
             padding: 15px 20px;
             margin-bottom: 30px;
             border-radius: 8px;
-            text-align: center;
+            color: #92400E;
             font-weight: bold;
             font-size: 1.1em;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
-        .action-required a {
-            color: #92400E;
-            text-decoration: underline;
+        .action-required-banner ul {
+            margin: 10px 0 0 20px;
+            padding: 0;
+            list-style-type: disc;
+        }
+        .action-required-banner li {
+            margin-bottom: 5px;
         }
         .stats-row {
-            text-align: center;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 10px;
             margin-bottom: 30px;
         }
+        .stat-chip {
+            background-color: #E0E6ED;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            color: #444;
+            border: 1px solid #CCD1D9;
+        }
         .discover-spotlight {
-            background-color: #fff;
+            background-color: #FFF;
             border-radius: 12px;
             padding: 20px;
             margin-bottom: 30px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-            border: 1px solid #eee;
-            color: #D45600;
-            text-align: center;
+            border-top: 5px solid #D45600;
         }
-        .discover-spotlight h3 {
+        .discover-spotlight h2 {
+            color: #D45600;
             margin-top: 0;
             font-size: 1.5em;
         }
-        .discover-spotlight .categories {
-            font-size: 1.2em;
-            margin: 15px 0;
-            font-weight: bold;
-        }
-        .discover-spotlight .max-cashback, .discover-spotlight .reminder {
-            font-size: 0.95em;
+        .discover-spotlight ul {
+            list-style-type: disc;
+            padding-left: 20px;
             margin-top: 10px;
         }
-        .card-grid {
+        .discover-spotlight li {
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .changes-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: 1fr;
             gap: 20px;
+            margin-bottom: 30px;
+        }
+        @media (min-width: 600px) {
+            .changes-grid {
+                grid-template-columns: 1fr 1fr;
+            }
         }
         .card-tile {
-            background-color: #fff;
+            background-color: #FFF;
             border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
             overflow: hidden;
-            border: 1px solid #eee;
         }
         .card-header {
-            padding: 15px;
-            color: #fff;
+            padding: 15px 20px;
+            color: #FFF;
             font-weight: bold;
-            font-size: 1.1em;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-size: 1.1em;
         }
         .card-header .annual-fee {
             font-size: 0.9em;
-            font-weight: normal;
-            opacity: 0.9;
+            opacity: 0.8;
+        }
+        .card-content {
+            padding: 15px 20px;
+        }
+        .badges {
+            margin-bottom: 10px;
         }
         .badge {
             display: inline-block;
             padding: 5px 10px;
             border-radius: 15px;
-            font-size: 0.8em;
+            font-size: 0.75em;
             font-weight: bold;
-            margin-left: 8px;
-            color: #fff;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            color: #FFF;
         }
-        .badge.new-perk { background-color: #22c55e; } /* Green */
-        .badge.benefit-change { background-color: #3b82f6; } /* Blue */
-        .badge.promo { background-color: #f59e0b; } /* Orange */
-        .badge.fee-change { background-color: #ef4444; } /* Red */
-        .card-content {
-            padding: 15px;
-        }
+        .badge.new-perk { background-color: #28A745; } /* Green */
+        .badge.benefit-change { background-color: #007BFF; } /* Blue */
+        .badge.promo { background-color: #FFC107; color: #333; } /* Orange */
+        .badge.fee-change { background-color: #DC3545; } /* Red */
         .card-content ul {
-            list-style: disc;
+            list-style-type: disc;
             padding-left: 20px;
-            margin-top: 10px;
+            margin: 0;
         }
         .card-content li {
-            margin-bottom: 10px;
-            line-height: 1.5;
+            margin-bottom: 8px;
+            color: #333;
+            line-height: 1.4;
         }
-        .card-content a {
-            color: #3b82f6;
-            text-decoration: none;
-        }
-        .card-content a:hover {
-            text-decoration: underline;
-        }
-        .action-needed {
+        .action-item {
+            color: #D97706;
             font-weight: bold;
-            color: #92400E;
-            margin-top: 15px;
-            display: block;
+            margin-top: 10px;
         }
-        .no-changes {
-            background-color: #fff;
+        .no-changes-section {
+            background-color: #FFF;
             border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            padding: 20px;
             margin-bottom: 30px;
-            border: 1px solid #eee;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
         }
-        .no-changes summary {
-            padding: 15px;
+        .no-changes-section summary {
             font-weight: bold;
             cursor: pointer;
-            background-color: #f9fafb;
-            border-radius: 12px 12px 0 0;
+            color: #333;
         }
-        .no-changes ul {
-            padding: 15px;
-            margin: 0;
-            list-style: none;
+        .no-changes-section ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin-top: 10px;
         }
-        .no-changes li {
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-        }
-        .no-changes li:last-child {
-            border-bottom: none;
+        .no-changes-section li {
+            margin-bottom: 5px;
+            color: #555;
         }
         footer {
             text-align: center;
             margin-top: 40px;
             font-size: 0.85em;
             color: #777;
+            padding: 20px;
+            border-top: 1px solid #E0E6ED;
         }
-        /* Issuer Colors */
-        .amex { background-color: #1B3A6B; }
-        .amex .annual-fee { color: #B8960C; }
-        .chase { background-color: #0A2342; }
-        .capital-one { background-color: #1A1A2E; }
-        .capital-one .annual-fee { color: #4A2C8A; }
-        .discover { background-color: #D45600; }
-        .citi { background-color: #003087; }
-        .wells-fargo { background-color: #8B0000; }
-        .us-bank { background-color: #8C1A1A; }
 
-        @media (min-width: 600px) {
-            .card-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        /* Issuer Colors */
+        .amex-header { background-color: #1B3A6B; }
+        .amex-header::after {
+            content: '';
+            display: block;
+            height: 3px;
+            background-color: #B8960C; /* Gold accent */
+            margin-top: 5px;
+            margin-left: -20px;
+            margin-right: -20px;
         }
+        .chase-header { background-color: #0A2342; }
+        .capitalone-header { background-color: #1A1A2E; }
+        .capitalone-header::after {
+            content: '';
+            display: block;
+            height: 3px;
+            background-color: #4A2C8A; /* Purple accent */
+            margin-top: 5px;
+            margin-left: -20px;
+            margin-right: -20px;
+        }
+        .discover-header { background-color: #D45600; }
+        .citi-header { background-color: #003087; }
+        .wellsfargo-header { background-color: #8B0000; }
+        .usbank-header { background-color: #8C1A1A; }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="dashboard-container">
         <header>
             <h1>💳 Card News & Updates</h1>
-            <h2>June 2026 · 18 cards monitored</h2>
-            <span class="chip">Powered by Gemini + Google Search</span>
+            <p class="subtitle">July 2026 · 18 cards monitored</p>
+            <span class="powered-by">Powered by Gemini + Google Search</span>
         </header>
 
-        <div class="action-required">
-            ⚡ ACTION REQUIRED: Activate Discover Q2 2026 5% rotating categories at discover.com/activate.
-        </div>
-
-        <div class="stats-row">
-            <span class="chip">5 cards with news</span>
-            <span class="chip">13 cards with no changes</span>
-            <span class="chip">Updated June 01, 2026</span>
-        </div>
-
-        <section class="discover-spotlight">
-            <h3>DISCOVER it — Q2 2026 SPOTLIGHT</h3>
-            <div class="categories">
-                5% Cash Back on Purchases in Rotating Categories
-            </div>
-            <div class="max-cashback">
-                Maximum cash back: $75 (5% of $1,500 spending cap)
-            </div>
-            <div class="reminder">
-                Reminder: Must activate by end of Q2 at discover.com/activate
+        <section class="action-required-section">
+            <div class="action-required-banner">
+                ⚡ ACTION REQUIRED
+                <ul>
+                    <li>Discover it: Activate Q3 2026 5% categories at <a href="https://www.discover.com/activate" target="_blank" style="color: #92400E;">discover.com/activate</a></li>
+                    <li>Amex Platinum: Enroll in new retail Amex Offers (Nordstrom, TUMI, Bose, Perplexity, Eight Sleep) starting July 1, 2026.</li>
+                    <li>Amex Platinum: Use any remaining Q2 Resy dining credit by June 30, 2026 (if applicable for your billing cycle).</li>
+                    <li>Amex Platinum: Use any remaining June Uber Cash and Digital Entertainment streaming credits by June 30, 2026, as they reset July 1.</li>
+                    <li>Amex Blue Cash Everyday: Enroll in the Disney Bundle statement credit.</li>
+                    <li>Amex Delta SkyMiles Gold: Enroll in the $120 annual Rideshare Credit after card renewal.</li>
+                    <li>Chase Sapphire Preferred: Activate complimentary Apple TV subscription by December 31, 2026.</li>
+                    <li>Chase Sapphire Preferred: Existing cardholders should consider transferring Ultimate Rewards points to World of Hyatt at the 1:1 ratio before October 1, 2026, if they have specific redemptions in mind.</li>
+                    <li>Chase United Explorer: Enroll in Instacart+ membership.</li>
+                    <li>Chase Ink Business Cash: Enroll in complimentary Instacart+ membership to receive monthly credits.</li>
+                    <li>Chase Ink Business Unlimited: Enroll in complimentary Instacart+ membership to receive monthly credits.</li>
+                    <li>Capital One Venture X: If interested in Inspirato, purchase the Inspirato Club subscription using the Venture X card on or before August 30, 2026.</li>
+                    <li>Capital One Venture X: If you want authorized users to have lounge access, pay the $125 annual fee per user.</li>
+                    <li>Capital One Venture X: If you want complimentary guest access to Capital One Lounges/Landings, ensure you meet the $75,000 annual spending threshold.</li>
+                </ul>
             </div>
         </section>
 
-        <div class="card-grid">
-            <div class="card-tile amex">
-                <div class="card-header">
-                    American Express Platinum
+        <section class="stats-row">
+            <div class="stat-chip">18 cards with news</div>
+            <div class="stat-chip">0 no changes</div>
+            <div class="stat-chip">Updated July 01, 2026</div>
+        </section>
+
+        <section class="discover-spotlight">
+            <h2>Discover it — Q3 2026 Spotlight</h2>
+            <ul>
+                <li><strong>5% Rotating Categories:</strong> Gas Stations & EV Charging, Transportation, and Drug Stores (July 1 - September 30, 2026).</li>
+                <li><strong>Maximum Cash Back:</strong> $75 (5% of $1,500 cap).</li>
+                <li><strong>Reminder:</strong> Must activate by end of Q3 at <a href="https://www.discover.com/activate" target="_blank" style="color: #D45600;">discover.com/activate</a>.</li>
+            </ul>
+        </section>
+
+        <section class="changes-grid">
+            
+            <div class="card-tile">
+                <div class="card-header amex-header">
+                    <span>Amex Platinum</span>
                     <span class="annual-fee">$895/yr</span>
                 </div>
                 <div class="card-content">
+                    <div class="badges">
+                        <span class="badge fee-change">FEE CHANGE</span>
+                        <span class="badge new-perk">NEW PERK</span>
+                        <span class="badge benefit-change">BENEFIT CHANGE</span>
+                    </div>
                     <ul>
-                        <li><span class="badge new-perk">NEW PERK</span> Digital Entertainment Credit: Receive up to $20 in statement credits monthly for eligible purchases like streaming and more.</li>
-                        <li><span class="badge new-perk">NEW PERK</span> Uber Credits: Increased to $35 per month (total $420 annually) for Uber rides and Uber Eats orders in the US.</li>
-                        <li><span class="badge benefit-change">BENEFIT CHANGE</span> Resy statement credit increased to $20 per month (total $240 annually).</li>
+                        <li>Annual fee increased from $695 to $895. This change was effective for new applicants on September 18, 2025, and for existing cardholders at their next renewal date on or after January 2, 2026.</li>
+                        <li>Starting July 1, 2026, new Amex Offers are available: up to $475 in statement credits across 5 retail offers (Nordstrom: $50 back on $200+; TUMI: $50 back on $250+; Bose: $75 back on $300+; Perplexity: up to $100 back on $200+; Eight Sleep: $200 back on $1,000+). Enrollment required.</li>
+                        <li>Starting July 1, 2026, access to over 450 new special offers for eligible bookings at Fine Hotels + Resorts and The Hotel Collection properties through AmexTravel.com.</li>
+                        <li>Saks Fifth Avenue Credit ($100 annual) is discontinued as of July 1, 2026. Existing cardholders could use the first-half allocation through June 30, 2026.</li>
+                        <li>Uber VIP status removed and replaced with 'Signature Support for Amex' (priority customer service within the Uber app) effective May 7, 2026. The $200 Uber Cash credit remains.</li>
+                        <li>'Events with Amex' benefit ended June 10, 2026.</li>
+                        <li>Centurion Lounge access rules changed effective July 8, 2026: access limited to within 5 hours of a departing/connecting flight, and guests must be on the same flight as the cardholder.</li>
+                        <li>Lufthansa Business Lounge access will be removed as a benefit effective October 1, 2026.</li>
                     </ul>
+                    <p class="action-item">⚠️ Action needed: Enroll in new retail Amex Offers (Nordstrom, TUMI, Bose, Perplexity, Eight Sleep) starting July 1, 2026.</p>
+                    <p class="action-item">⚠️ Action needed: Use any remaining Q2 Resy dining credit by June 30, 2026 (if applicable for your billing cycle).</p>
+                    <p class="action-item">⚠️ Action needed: Use any remaining June Uber Cash and Digital Entertainment streaming credits by June 30, 2026, as they reset July 1.</p>
                 </div>
             </div>
-
-            <div class="card-tile amex">
-                <div class="card-header">
-                    American Express Blue Cash Everyday
-                    <span class="annual-fee">No Annual Fee</span>
+            
+            <div class="card-tile">
+                <div class="card-header amex-header">
+                    <span>Amex Blue Cash Everyday</span>
+                    <span class="annual-fee">no annual fee</span>
                 </div>
                 <div class="card-content">
+                    <div class="badges">
+                        <span class="badge new-perk">NEW PERK</span>
+                        <span class="badge promo">PROMO</span>
+                    </div>
                     <ul>
-                        <li>No significant changes found this month.</li>
+                        <li>Up to a $7 monthly statement credit (up to $84 annually) for a Disney Bundle subscription (Disney+, Hulu, ESPN+) after enrollment.</li>
+                        <li>Welcome offer: As high as $200 cash back for spending $2,000 in purchases within the first 6 months (welcome offers vary).</li>
+                        <li>Introductory APR of 0% for 15 months on purchases.</li>
                     </ul>
+                    <p class="action-item">⚠️ Action needed: Enroll in the Disney Bundle statement credit.</p>
                 </div>
             </div>
-
-            <div class="card-tile amex">
-                <div class="card-header">
-                    American Express Blue Business Plus
-                    <span class="annual-fee">No Annual Fee</span>
+            
+            <div class="card-tile">
+                <div class="card-header amex-header">
+                    <span>Amex Blue Business Plus</span>
+                    <span class="annual-fee">no annual fee</span>
                 </div>
                 <div class="card-content">
+                    <div class="badges">
+                        <span class="badge promo">PROMO</span>
+                    </div>
                     <ul>
-                        <li>No significant changes found this month.</li>
+                        <li>Standard welcome offer: 15,000 Membership Rewards points after spending $3,000 in purchases in the first 3 months. Targeted offers up to 75,000 points after $15,000 spend have been seen.</li>
+                        <li>Introductory APR of 0% for 12 months on purchases.</li>
                     </ul>
                 </div>
             </div>
-
-            <div class="card-tile amex">
-                <div class="card-header">
-                    American Express Delta SkyMiles Gold
+            
+            <div class="card-tile">
+                <div class="card-header amex-header">
+                    <span>Amex Delta SkyMiles Gold</span>
                     <span class="annual-fee">$150/yr</span>
                 </div>
                 <div class="card-content">
+                    <div class="badges">
+                        <span class="badge new-perk">NEW PERK</span>
+                        <span class="badge benefit-change">BENEFIT CHANGE</span>
+                        <span class="badge promo">PROMO</span>
+                    </div>
                     <ul>
-                        <li>No significant changes found this month.</li>
+                        <li>Effective June 4, 2026, complimentary second checked bag on domestic Delta-operated flights.</li>
+                        <li>Effective June 4, 2026, up to $10 monthly ($120 annually) rideshare statement credit for U.S. rides with eligible services, after first card renewal. Enrollment required.</li>
+                        <li>Refreshed card designs.</li>
+                        <li>Limited-time welcome offer (ends July 15, 2026): Earn 70,000 bonus miles after spending $3,000 in purchases in the first 6 months, plus an additional 20,000 bonus miles after spending an additional $2,000 (total $5,000) in the first 6 months (up to 90,000 miles total).</li>
+                        <li>$0 introductory annual fee for the first year, then $150.</li>
                     </ul>
+                    <p class="action-item">⚠️ Action needed: Enroll in the $120 annual Rideshare Credit after card renewal.</p>
                 </div>
             </div>
-
-            <div class="card-tile amex">
-                <div class="card-header">
-                    American Express Hilton Honors
-                    <span class="annual-fee">No Annual Fee</span>
+            
+            <div class="card-tile">
+                <div class="card-header amex-header">
+                    <span>Amex Hilton Honors</span>
+                    <span class="annual-fee">no annual fee</span>
                 </div>
                 <div class="card-content">
+                    <div class="badges">
+                        <span class="badge promo">PROMO</span>
+                    </div>
                     <ul>
-                        <li>No significant changes found this month.</li>
+                        <li>Limited-time welcome offer (ends July 29, 2026): Earn 100,000 Hilton Honors Bonus Points and a $100 statement credit after spending $2,000 on eligible purchases in the first 6 months.</li>
                     </ul>
                 </div>
             </div>
-
-            <div class="card-tile chase">
-                <div class="card-header">
-                    Chase Sapphire Preferred
+            
+            <div class="card-tile">
+                <div class="card-header chase-header">
+                    <span>Chase Sapphire Preferred</span>
                     <span class="annual-fee">$95/yr</span>
                 </div>
                 <div class="card-content">
+                    <div class="badges">
+                        <span class="badge new-perk">NEW PERK</span>
+                        <span class="badge benefit-change">BENEFIT CHANGE</span>
+                        <span class="badge promo">PROMO</span>
+                    </div>
                     <ul>
-                        <li>No significant changes found this month.</li>
+                        <li>Effective June 15, 2026, earn 3x points on gas and EV charging.</li>
+                        <li>Effective June 15, 2026, earn 3x points on direct vacation home bookings (e.g., Airbnb, Vrbo).</li>
+                        <li>Effective June 15, 2026, $100 Chase Travel Hotel Credit each account anniversary (doubled from $50).</li>
+                        <li>Effective June 15, 2026, up to $120 Global Entry, TSA PreCheck, or NEXUS credit every four years.</li>
+                        <li>Effective June 15, 2026, Emergency Evacuation and Transportation coverage added to travel protections.</li>
+                        <li>Complimentary Apple TV subscription for one year when activated by December 31, 2026.</li>
+                        <li>The 10% Anniversary Bonus is discontinued. For cardmembers who applied before June 15, 2026, eligible purchases through October 1, 2026, will still earn the bonus. For new applicants on or after June 15, 2026, this benefit is gone immediately.</li>
+                        <li>World of Hyatt transfer ratio changed from 1:1 to 4:3. Effective immediately for new cardholders (on or after June 15, 2026). For existing cardholders (applied before June 15, 2026), the 1:1 ratio remains until October 1, 2026, then becomes 4:3.</li>
+                        <li>Welcome offer: 100,000 bonus points after spending $5,000 on purchases in the first 3 months from account opening.</li>
                     </ul>
+                    <p class="action-item">⚠️ Action needed: Activate complimentary Apple TV subscription by December 31, 2026.</p>
+                    <p class="action-item">⚠️ Action needed: Existing cardholders should consider transferring Ultimate Rewards points to World of Hyatt at the 1:1 ratio before October 1, 2026, if they have specific redemptions in mind.</p>
                 </div>
             </div>
-
-            <div class="card-tile chase">
-                <div class="card-header">
-                    Chase Freedom Unlimited
-                    <span class="annual-fee">No Annual Fee</span>
+            
+            <div class="card-tile">
+                <div class="card-header chase-header">
+                    <span>Chase Freedom Unlimited</span>
+                    <span class="annual-fee">no annual fee</span>
                 </div>
                 <div class="card-content">
+                    <div class="badges">
+                        <span class="badge promo">PROMO</span>
+                    </div>
                     <ul>
-                        <li>No significant changes found this month.</li>
+                        <li>Welcome offer: $200 for spending $500 on purchases in the first 3 months.</li>
+                        <li>Some offers include 5% on gas and groceries for the first year (in-branch only).</li>
                     </ul>
                 </div>
             </div>
-
-            <div class="card-tile chase">
-                <div class="card-header">
-                    Chase Southwest Priority
+            
+            <div class="card-tile">
+                <div class="card-header chase-header">
+                    <span>Chase Southwest Priority</span>
                     <span class="annual-fee">$229/yr</span>
                 </div>
                 <div class="card-content">
+                    <div class="badges">
+                        <span class="badge promo">PROMO</span>
+                    </div>
                     <ul>
-                        <li>No significant changes found this month.</li>
+                        <li>Limited-time welcome offer (ends July 1, 2026, at 9 a.m. ET): Earn 90,000 points after spending $3,000 in the first 3 months from account opening.</li>
                     </ul>
                 </div>
             </div>
-
-            <div class="card-tile chase">
-                <div class="card-header">
-                    Chase United Explorer
+            
+            <div class="card-tile">
+                <div class="card-header chase-header">
+                    <span>Chase United Explorer</span>
                     <span class="annual-fee">$95/yr</span>
                 </div>
                 <div class="card-content">
+                    <div class="badges">
+                        <span class="badge fee-change">FEE CHANGE</span>
+                        <span class="badge new-perk">NEW PERK</span>
+                        <span class="badge promo">PROMO</span>
+                    </div>
                     <ul>
-                        <li>No significant changes found this month.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="card-tile chase">
-                <div class="card-header">
-                    Chase Ink Business Cash
-                    <span class="annual-fee">No Annual Fee</span>
-                </div>
-                <div class="card-content">
-                    <ul>
-                        <li>No significant changes found this month.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="card-tile chase">
-                <div class="card-header">
-                    Chase Ink Business Unlimited
-                    <span class="annual-fee">No Annual Fee</span>
-                </div>
-                <div class="card-content">
-                    <ul>
-                        <li>No significant changes found this month.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="card-tile capital-one">
-                <div class="card-header">
-                    Capital One Venture X
-                    <span class="annual-fee">$395/yr</span>
-                </div>
-                <div class="card-content">
-                    <ul>
-                        <li>No significant changes found this month.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="card-tile capital-one">
-                <div class="card-header">
-                    Capital One Venture
-                    <span class="annual-fee">$95/yr</span>
-                </div>
-                <div class="card-content">
-                    <ul>
-                        <li>No significant changes found this month.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="card-tile discover">
-                <div class="card-header">
-                    Discover it Card
-                    <span class="annual-fee">No Annual Fee</span>
-                </div>
-                <div class="card-content">
-                    <ul>
-                        <li><span class="badge promo">PROMO</span> Q2 2026 5% rotating categories are active and require activation.</li>
-                        <li><span class="action-needed">⚠️ Action needed: Activate Q2 5% categories at discover.com/activate by June 30, 2026.</span></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="card-tile citi">
-                <div class="card-header">
-                    Citi Custom Cash
-                    <span class="annual-fee">No Annual Fee</span>
-                </div>
-                <div class="card-content">
-                    <ul>
-                        <li>No significant changes found this month.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="card-tile wells-fargo">
-                <div class="card-header">
-                    Wells Fargo Active Cash
-                    <span class="annual-fee">No Annual Fee</span>
-                </div>
-                <div class="card-content">
-                    <ul>
-                        <li>No significant changes found this month.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="card-tile us-bank">
-                <div class="card-header">
-                    US Bank Business Triple Cash
-                    <span class="annual-fee">No Annual Fee</span>
-                </div>
-                <div class="card-content">
-                    <ul>
-                        <li>No significant changes found this month.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="card-tile us-bank">
-                <div class="card-header">
-                    US Bank Altitude Go
-                    <span class="annual-fee">No Annual Fee</span>
-                </div>
-                <div class="card-content">
-                    <ul>
-                        <li>No significant changes found this month.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <details class="no-changes">
-            <summary>13 Cards with No Changes This Month</summary>
-            <ul>
-                <li>Amex Blue Cash Everyday</li>
-                <li>Amex Blue Business Plus</li>
-                <li>Amex Delta SkyMiles Gold</li>
-                <li>Amex Hilton Honors</li>
-                <li>Chase Sapphire Preferred</li>
-                <li>Chase Freedom Unlimited</li>
-                <li>Chase Southwest Priority</li>
-                <li>Chase United Explorer</li>
-                <li>Chase Ink Business Cash</li>
-                <li>Chase Ink Business Unlimited</li>
-                <li>Capital One Venture X</li>
-                <li>Capital One Venture</li>
-                <li>Citi Custom Cash</li>
-                <li>Wells Fargo Active Cash</li>
-                <li>US Bank Business Triple Cash</li>
-                <li>US Bank Altitude Go</li>
-            </ul>
-        </details>
-
-        <footer>
-            Researched June 2026 · Auto-refreshed on the 1st of each month via GitHub Actions · 18 cards tracked
-        </footer>
-    </div>
-</body>
-</html>
+                        <li>Annual fee is $0 introductory for the first year
