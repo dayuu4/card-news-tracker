@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Card News & Updates - August 2026</title>
+    <title>💳 Card News & Updates - October 2026</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -16,15 +16,18 @@
         .container {
             max-width: 880px;
             margin: 0 auto;
-            padding: 0 15px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 25px;
         }
         header {
             text-align: center;
             margin-bottom: 30px;
         }
         h1 {
-            font-size: 2.5em;
-            color: #1B3A6B;
+            color: #0A2342;
+            font-size: 2.2em;
             margin-bottom: 5px;
         }
         .subtitle {
@@ -34,74 +37,68 @@
         }
         .gemini-chip {
             display: inline-block;
-            background-color: #E0E7EF;
+            background-color: #E0E0E0;
             color: #666;
             padding: 5px 10px;
-            border-radius: 15px;
+            border-radius: 20px;
             font-size: 0.8em;
             font-weight: 500;
         }
-        .action-required-banner {
+        .action-required {
             background-color: #FFF7ED;
             border-left: 4px solid #D97706;
             padding: 15px 20px;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            font-weight: bold;
             color: #92400E;
+            font-weight: bold;
             font-size: 1.1em;
-        }
-        .action-required-banner ul {
-            margin: 10px 0 0 20px;
-            padding: 0;
-            list-style-type: disc;
-        }
-        .action-required-banner li {
-            margin-bottom: 5px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
         }
         .stats-row {
             display: flex;
             flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
             justify-content: center;
-            gap: 15px;
-            margin-bottom: 30px;
         }
         .stat-chip {
-            background-color: #E0E7EF;
-            color: #444;
+            background-color: #F0F4F8;
+            border: 1px solid #DCDFE4;
+            color: #555;
             padding: 8px 15px;
             border-radius: 20px;
             font-size: 0.9em;
             font-weight: 500;
-            border: 1px solid #C0C7D1;
         }
         .discover-spotlight {
-            background-color: #FFF;
-            border-radius: 12px;
+            background-color: #FFF8F0;
+            border: 1px solid #D45600;
             padding: 20px;
             margin-bottom: 30px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            border-left: 5px solid #D45600; /* Discover orange */
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            text-align: center;
         }
-        .discover-spotlight h2 {
+        .discover-spotlight h3 {
             color: #D45600;
-            font-size: 1.5em;
+            font-size: 1.4em;
             margin-top: 0;
-            margin-bottom: 15px;
-        }
-        .discover-spotlight ul {
-            list-style-type: disc;
-            padding-left: 20px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
         .discover-spotlight p {
-            margin-bottom: 5px;
+            margin: 5px 0;
+            font-size: 1em;
+        }
+        .discover-spotlight .activate-link {
+            color: #D45600;
+            text-decoration: none;
+            font-weight: bold;
         }
         .changes-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 25px;
+            gap: 20px;
             margin-bottom: 30px;
         }
         @media (min-width: 600px) {
@@ -110,119 +107,93 @@
             }
         }
         .card-tile {
-            background-color: #FFF;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             overflow: hidden;
+            border: 1px solid #E0E0E0;
         }
         .card-header {
-            padding: 15px 20px;
-            color: #FFF;
+            padding: 15px;
+            color: #fff;
             font-weight: bold;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-size: 1.1em;
         }
-        .card-header .card-name {
-            font-size: 1.2em;
-        }
-        .card-header .annual-fee {
-            font-size: 0.9em;
-            opacity: 0.8;
-        }
-        .amex-header { background-color: #1B3A6B; }
-        .amex-header .annual-fee { color: #B8960C; }
-        .chase-header { background-color: #0A2342; }
-        .capitalone-header { background-color: #1A1A2E; }
-        .capitalone-header .annual-fee { color: #4A2C8A; }
-        .discover-header { background-color: #D45600; }
-        .citi-header { background-color: #003087; }
-        .wells-fargo-header { background-color: #8B0000; }
-        .usbank-header { background-color: #8C1A1A; }
+        .card-header.amex { background-color: #1B3A6B; }
+        .card-header.amex::after { content: ''; width: 10px; height: 10px; background-color: #B8960C; border-radius: 50%; }
+        .card-header.chase { background-color: #0A2342; }
+        .card-header.capitalone { background-color: #1A1A2E; }
+        .card-header.capitalone::after { content: ''; width: 10px; height: 10px; background-color: #4A2C8A; border-radius: 50%; }
+        .card-header.discover { background-color: #D45600; }
+        .card-header.citi { background-color: #003087; }
+        .card-header.wellsfargo { background-color: #8B0000; }
+        .card-header.usbank { background-color: #8C1A1A; }
 
         .card-content {
-            padding: 20px;
+            padding: 15px;
         }
         .badges {
-            margin-bottom: 15px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
+            margin-bottom: 10px;
         }
         .badge {
             display: inline-block;
             padding: 5px 10px;
-            border-radius: 12px;
+            border-radius: 15px;
             font-size: 0.75em;
             font-weight: bold;
-            text-transform: uppercase;
-            color: #FFF;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            color: #fff;
         }
         .badge.new-perk { background-color: #28A745; } /* Green */
         .badge.benefit-change { background-color: #007BFF; } /* Blue */
         .badge.fee-change { background-color: #DC3545; } /* Red */
         .badge.promo { background-color: #FFC107; color: #333; } /* Orange */
         .badge.limited-offer { background-color: #FD7E14; } /* Darker Orange */
-        .badge.removed { background-color: #6C757D; } /* Gray */
 
         .card-content ul {
             list-style-type: disc;
+            margin: 0;
             padding-left: 20px;
-            margin-top: 0;
-            margin-bottom: 15px;
         }
         .card-content li {
             margin-bottom: 8px;
+            font-size: 0.95em;
         }
         .action-needed {
             color: #D97706;
             font-weight: bold;
-            margin-top: 15px;
-            border-top: 1px dashed #EEE;
-            padding-top: 10px;
-        }
-        .no-changes-section {
-            background-color: #FFF;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            padding: 20px;
-            margin-bottom: 30px;
-        }
-        .no-changes-section summary {
-            font-weight: bold;
-            cursor: pointer;
-            color: #0A2342;
-        }
-        .no-changes-section ul {
-            list-style-type: none;
-            padding-left: 0;
             margin-top: 10px;
         }
-        .no-changes-section li {
-            margin-bottom: 5px;
-            padding-left: 15px;
-            position: relative;
+        .no-changes details {
+            background-color: #F8F8F8;
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
         }
-        .no-changes-section li::before {
-            content: '•';
+        .no-changes summary {
+            font-weight: bold;
+            cursor: pointer;
+            color: #555;
+        }
+        .no-changes ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+        .no-changes li {
+            margin-bottom: 5px;
             color: #666;
-            position: absolute;
-            left: 0;
         }
         footer {
             text-align: center;
+            margin-top: 40px;
             font-size: 0.85em;
             color: #777;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #E0E7EF;
-        }
-        a {
-            color: #007BFF;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
         }
     </style>
 </head>
@@ -230,403 +201,312 @@
     <div class="container">
         <header>
             <h1>💳 Card News & Updates</h1>
-            <p class="subtitle">August 2026 · 18 cards monitored</p>
+            <p class="subtitle">October 2026 · 18 cards monitored</p>
             <span class="gemini-chip">Powered by Gemini + Google Search</span>
         </header>
 
-        <div class="action-required-banner">
-            ⚡ ACTION REQUIRED
+        <div class="action-required">
+            ⚡ ACTION REQUIRED:
             <ul>
-                <li>Activate Discover Q3 5% categories at <a href="https://www.discover.com/activate" target="_blank">discover.com/activate</a>.</li>
-                <li>Amex Platinum: Enroll in new retail Amex Offers (Nordstrom, TUMI, Bose, Perplexity, Eight Sleep).</li>
-                <li>Amex Delta SkyMiles Gold: Enroll in the $120 annual Rideshare Credit after card renewal.</li>
-                <li>Chase Sapphire Preferred: Activate complimentary one-year Apple TV subscription by December 31, 2026.</li>
-                <li>Chase Ink Business Cash: Activate complimentary Instacart+ membership and utilize the $20 monthly Instacart credit.</li>
-                <li>Chase Ink Business Unlimited: Activate complimentary Instacart+ membership and utilize the $20 monthly Instacart credit.</li>
-                <li>Capital One Venture X: If you want authorized users to have lounge access, pay the $125 annual lounge access fee per authorized user. If you want complimentary guest access to Capital One Lounges/Landings, ensure you spend $75,000+ in the prior calendar year.</li>
+                <li>Activate Discover it Q4 5% categories (Restaurants, Entertainment, Utilities) at <a href="https://www.discover.com/activate" class="activate-link" target="_blank">discover.com/activate</a>.</li>
+                <li>Amex Platinum: Enroll in Resy and lululemon quarterly credits.</li>
+                <li>Amex Platinum: Activate 40% Hilton Honors transfer bonus if planning to transfer (ends Nov 24, 2026).</li>
+                <li>Amex Delta SkyMiles Gold: Enroll in $120 annual Rideshare Credit after card renewal.</li>
+                <li>Amex Delta SkyMiles Gold: Redeem complimentary premium snack via Delta Sync Wi-Fi on eligible flights (ends Oct 31, 2026).</li>
+                <li>Chase Sapphire Preferred (existing cardholders): Consider transferring Ultimate Rewards points to World of Hyatt at 1:1 ratio before October 1, 2026, as the ratio will change to 4:3.</li>
+                <li>Chase Sapphire Preferred: Activate complimentary Apple TV subscription by December 31, 2026.</li>
+                <li>Capital One Venture X Business (if applicable): If targeted, spend $3,000 on Capital One Business Travel by December 15, 2026, for a $500 travel credit.</li>
             </ul>
         </div>
 
         <div class="stats-row">
             <span class="stat-chip">16 cards with news</span>
             <span class="stat-chip">2 no changes</span>
-            <span class="stat-chip">Updated August 01, 2026</span>
+            <span class="stat-chip">Updated October 01, 2026</span>
         </div>
 
         <div class="discover-spotlight">
-            <h2>Discover it — Q3 2026 Spotlight</h2>
-            <p><strong>5% Rotating Categories (July 1 - September 30, 2026):</strong></p>
-            <ul>
-                <li>Gas Stations and EV Charging</li>
-                <li>Transportation (includes airlines, commuter passenger transport like bus/rail/ferry; excludes car rentals, cruise lines, taxi/rideshare)</li>
-                <li>Drug Stores</li>
-            </ul>
-            <p>Maximum cash back: $75 (5% of $1,500 cap)</p>
-            <p><strong>Reminder: Must activate by end of Q3 at <a href="https://www.discover.com/activate" target="_blank">discover.com/activate</a></strong></p>
+            <h3>Discover it Card — Q4 2026 Spotlight</h3>
+            <p><strong>5% Rotating Categories:</strong> Restaurants, Entertainment, and Utilities</p>
+            <p>Valid from October 1 through December 31, 2026, on up to $1,500 in combined purchases (then 1%).</p>
+            <p>Maximum cash back: $75 (5% of $1,500 cap).</p>
+            <p class="action-needed">Reminder: Must activate by end of Q4 at <a href="https://www.discover.com/activate" class="activate-link" target="_blank">discover.com/activate</a></p>
         </div>
 
         <div class="changes-grid">
-            <!-- Amex Platinum -->
             <div class="card-tile">
-                <div class="card-header amex-header">
-                    <span class="card-name">Amex Platinum</span>
-                    <span class="annual-fee">$895/yr</span>
+                <div class="card-header amex">
+                    <span>Amex Platinum</span>
+                    <span>$895/yr</span>
                 </div>
                 <div class="card-content">
                     <div class="badges">
-                        <span class="badge fee-change">Fee Change</span>
-                        <span class="badge removed">Benefit Removed</span>
-                        <span class="badge benefit-change">Benefit Change</span>
-                        <span class="badge new-perk">New Perk</span>
-                        <span class="badge promo">Limited Offer</span>
+                        <span class="badge benefit-change">BENEFIT CHANGE</span>
+                        <span class="badge new-perk">NEW PERK</span>
+                        <span class="badge promo">PROMO</span>
                     </div>
                     <ul>
-                        <li>Annual fee increased to $895 for new applicants in September 2025, effective for existing cardholders at renewal on or after January 2, 2026.</li>
-                        <li>Saks Fifth Avenue credit removed as of July 1, 2026. Cardholders had until June 30, 2026, to use the last $50 credit.</li>
-                        <li>Uber VIP status removed as of May 7, 2026, replaced with "Signature Support for Amex" (24/7 live support via Uber/Uber Eats/Postmates apps).</li>
-                        <li>"Events with Amex" benefit ended June 10, 2026.</li>
-                        <li>Centurion Lounge guest and timing rules effective July 8, 2026: Guests must be traveling on the same flight as the primary cardholder; stays limited to five hours during layovers.</li>
-                        <li>New retail Amex Offers launched July 1, 2026, including Nordstrom ($50 back on $200), TUMI ($50 back on $250), Bose ($75 back on $300), Perplexity ($100 back on $200), and Eight Sleep ($200 back on $1,000). Enrollment required.</li>
-                        <li>New Amex Travel Offers: Over 450 offers for Fine Hotels + Resorts and The Hotel Collection properties (e.g., complimentary nights, on-property credits) when booked through AmexTravel.com.</li>
-                        <li>Platinum Member Airfares program expanded to include discounts on select domestic and economy flights.</li>
+                        <li>**Benefit Reduced:** Effective October 1, 2026, Platinum Card Members will no longer have access to any Lufthansa Lounges.</li>
+                        <li>**Benefit Reduced (Amex Platinum Travel card, potentially relevant):** From October 1, 2026, complimentary domestic lounge access requires a spend of ₹1 lakh in the previous calendar quarter for up to two visits in the following quarter.</li>
+                        <li>**New Perk:** Quarterly credits for Resy (up to $100) and lululemon (up to $75) reset on October 1, 2026.</li>
+                        <li>**Limited-Time Promotion:** Earn a 40% bonus when transferring Membership Rewards points to Hilton Honors between September 29, 2026, and November 24, 2026. (1 MR point = 2.8 Hilton Honors points with bonus).</li>
                     </ul>
-                    <p class="action-needed">⚠️ Action needed: Enroll in new retail Amex Offers (Nordstrom, TUMI, Bose, Perplexity, Eight Sleep) and book Amex Travel Offers through AmexTravel.com.</p>
+                    <p class="action-needed">⚠️ Action needed: Enroll in Resy and lululemon quarterly credits. Activate 40% Hilton Honors transfer bonus if planning to transfer.</p>
                 </div>
             </div>
 
-            <!-- Amex Blue Cash Everyday -->
             <div class="card-tile">
-                <div class="card-header amex-header">
-                    <span class="card-name">Amex Blue Cash Everyday</span>
-                    <span class="annual-fee">No annual fee</span>
+                <div class="card-header amex">
+                    <span>Amex Blue Cash Everyday</span>
+                    <span>No annual fee</span>
                 </div>
                 <div class="card-content">
                     <div class="badges">
-                        <span class="badge promo">Limited Offer</span>
-                        <span class="badge benefit-change">Benefit Change</span>
+                        <span class="badge limited-offer">LIMITED OFFER</span>
                     </div>
                     <ul>
-                        <li>Welcome bonus: As high as $200 cash back after spending $2,000 in purchases within the first 6 months.</li>
-                        <li>Introductory APR: 0% for 15 months on purchases.</li>
-                        <li>Existing "Old Blue Cash" cards are being converted to Blue Cash Everyday on March 4, 2027.</li>
+                        <li>**Limited-Time Offer:** New cardmembers can earn as high as $200 cash back after spending $2,000 in purchases within the first 6 months. Welcome offers may vary.</li>
                     </ul>
                 </div>
             </div>
 
-            <!-- Amex Blue Business Plus -->
             <div class="card-tile">
-                <div class="card-header amex-header">
-                    <span class="card-name">Amex Blue Business Plus</span>
-                    <span class="annual-fee">No annual fee</span>
+                <div class="card-header amex">
+                    <span>Amex Blue Business Plus</span>
+                    <span>No annual fee</span>
                 </div>
                 <div class="card-content">
                     <div class="badges">
-                        <span class="badge promo">Limited Offer</span>
+                        <span class="badge limited-offer">LIMITED OFFER</span>
                     </div>
                     <ul>
-                        <li>Public welcome offer: 15,000 Membership Rewards points after spending $3,000 in eligible purchases within the first 3 months.</li>
-                        <li>Targeted welcome offer: Some users have been targeted for 75,000 points after spending $15,000 in the first 12 months.</li>
-                        <li>Introductory APR: 0% for 12 months on purchases.</li>
+                        <li>**Limited-Time Offer:** Earn 15,000 Membership Rewards points after spending $3,000 in eligible purchases within the first 3 months.</li>
                     </ul>
                 </div>
             </div>
 
-            <!-- Amex Delta SkyMiles Gold -->
             <div class="card-tile">
-                <div class="card-header amex-header">
-                    <span class="card-name">Amex Delta SkyMiles Gold</span>
-                    <span class="annual-fee">$150/yr</span>
+                <div class="card-header amex">
+                    <span>Amex Delta SkyMiles Gold</span>
+                    <span>$150/yr</span>
                 </div>
                 <div class="card-content">
                     <div class="badges">
-                        <span class="badge new-perk">New Perk</span>
-                        <span class="badge promo">Limited Offer</span>
+                        <span class="badge new-perk">NEW PERK</span>
+                        <span class="badge limited-offer">LIMITED OFFER</span>
                     </div>
                     <ul>
-                        <li>Complimentary second checked bag on domestic Delta-operated flights for basic card members, effective June 4, 2026.</li>
-                        <li>$120 annual Rideshare Credit: Up to $10 in monthly statement credits on eligible U.S. rideshare purchases with select providers, after Card renewal. Effective June 4, 2026.</li>
-                        <li>Current welcome offer (as of August 2026): As high as 80,000 miles for spending $2,000 on eligible purchases within the first 6 months.</li>
+                        <li>**New Perk:** $120 annual Rideshare Credit (up to $10/month statement credits) on eligible U.S. rideshare purchases, available after card renewal.</li>
+                        <li>**New Perk:** Complimentary second checked bag on domestic Delta-operated flights for Basic Card Members.</li>
+                        <li>**Limited-Time Offer:** New cardmembers can earn as high as 80,000 bonus miles + $250 statement credit after spending $3,000 in eligible purchases within the first 6 months. Offer ends November 4, 2026.</li>
+                        <li>**Limited-Time Promotion:** Receive one complimentary premium snack on select Delta flights over 900 miles (through October 31, 2026).</li>
                     </ul>
-                    <p class="action-needed">⚠️ Action needed: Enroll in the $120 annual Rideshare Credit after card renewal.</p>
+                    <p class="action-needed">⚠️ Action needed: Enroll in $120 annual Rideshare Credit after card renewal. Redeem complimentary premium snack via Delta Sync Wi-Fi on eligible flights (ends Oct 31, 2026).</p>
                 </div>
             </div>
 
-            <!-- Amex Hilton Honors -->
             <div class="card-tile">
-                <div class="card-header amex-header">
-                    <span class="card-name">Amex Hilton Honors</span>
-                    <span class="annual-fee">No annual fee</span>
+                <div class="card-header amex">
+                    <span>Amex Hilton Honors</span>
+                    <span>No annual fee</span>
                 </div>
                 <div class="card-content">
                     <div class="badges">
-                        <span class="badge promo">Limited Offer</span>
-                        <span class="badge benefit-change">Benefit Change</span>
+                        <span class="badge limited-offer">LIMITED OFFER</span>
                     </div>
                     <ul>
-                        <li>Welcome Bonus: Earn 100,000 Hilton Honors Bonus Points and a $100 Statement Credit after spending $2,000 on eligible purchases within the first 6 months. Offer ends July 29, 2026.</li>
-                        <li>Free Night Rewards can now be used on any night of the week (not just weekends) for U.S. Hilton Honors American Express Credit Cards. No blackout dates.</li>
-                        <li>Hilton Honors Gold status now requires 25 nights (down from 40) for organic earning, making the card's complimentary Silver status a less dramatic "shortcut" to Gold.</li>
+                        <li>**Limited-Time Offer:** Earn 70,000 bonus points + a Free Night Reward after spending $2,000 in purchases within the first 6 months. Offer ends January 13, 2027.</li>
                     </ul>
                 </div>
             </div>
 
-            <!-- Chase Sapphire Preferred -->
             <div class="card-tile">
-                <div class="card-header chase-header">
-                    <span class="card-name">Chase Sapphire Preferred</span>
-                    <span class="annual-fee">$95/yr</span>
+                <div class="card-header chase">
+                    <span>Chase Sapphire Preferred</span>
+                    <span>$95/yr</span>
                 </div>
                 <div class="card-content">
                     <div class="badges">
-                        <span class="badge new-perk">New Perk</span>
-                        <span class="badge benefit-change">Benefit Change</span>
-                        <span class="badge removed">Benefit Reduced</span>
-                        <span class="badge promo">Limited Offer</span>
+                        <span class="badge benefit-change">BENEFIT CHANGE</span>
+                        <span class="badge new-perk">NEW PERK</span>
+                        <span class="badge limited-offer">LIMITED OFFER</span>
                     </div>
                     <ul>
-                        <li>New benefits effective June 15, 2026: 3x points on gas and EV charging; 3x points on direct vacation rental bookings (Airbnb, Vrbo, etc.); $100 Chase Travel Hotel Credit each account anniversary (doubled from $50); $120 Global Entry, TSA PreCheck, or NEXUS credit every four years; Emergency Evacuation and Transportation coverage up to $100,000; Complimentary Apple TV subscription for one year.</li>
-                        <li>World of Hyatt transfer ratio changed from 1:1 to 4:3 (effective immediately for new cardmembers on or after June 15, 2026; effective October 1, 2026, for existing cardmembers).</li>
-                        <li>Current welcome offer: 75,000 bonus points after spending $5,000 in purchases in the first three months.</li>
+                        <li>**Benefit Removed:** 10% anniversary bonus discontinued for new applicants on or after June 15, 2026. Existing cardholders retain it through October 1, 2026.</li>
+                        <li>**Transfer Partner Change:** World of Hyatt transfer ratio changed from 1:1 to 4:3. Effective October 1, 2026, for existing cardholders.</li>
+                        <li>**New Earning Rates (effective June 15, 2026):** 3x points on gas and EV charging, 3x points on vacation homes.</li>
+                        <li>**New Perk (effective June 15, 2026):** Chase Travel Hotel Credit doubled from $50 to $100 each account anniversary.</li>
+                        <li>**New Perk (effective June 15, 2026):** Up to $120 credit every four years for Global Entry, TSA PreCheck, or NEXUS application fee.</li>
+                        <li>**New Perk (effective June 15, 2026):** Complimentary one-year Apple TV subscription when activated by December 31, 2026.</li>
+                        <li>**New Perk (effective June 15, 2026):** Added Emergency Evacuation and Transportation coverage to travel protections.</li>
+                        <li>**Limited-Time Offer:** Earn 75,000 points after spending $5,000 in the first 3 months.</li>
                     </ul>
-                    <p class="action-needed">⚠️ Action needed: Activate complimentary one-year Apple TV subscription by December 31, 2026.</p>
+                    <p class="action-needed">⚠️ Action needed: Existing cardholders, consider transferring Ultimate Rewards points to World of Hyatt at 1:1 ratio before October 1, 2026. Activate complimentary Apple TV subscription by December 31, 2026.</p>
                 </div>
             </div>
 
-            <!-- Chase Freedom Unlimited -->
             <div class="card-tile">
-                <div class="card-header chase-header">
-                    <span class="card-name">Chase Freedom Unlimited</span>
-                    <span class="annual-fee">No annual fee</span>
+                <div class="card-header chase">
+                    <span>Chase Freedom Unlimited</span>
+                    <span>No annual fee</span>
                 </div>
                 <div class="card-content">
                     <div class="badges">
-                        <span class="badge promo">Limited Offer</span>
+                        <span class="badge limited-offer">LIMITED OFFER</span>
                     </div>
                     <ul>
-                        <li>Current welcome offer: $200 cash back after spending $500 on purchases in the first 3 months.</li>
-                        <li>Introductory APR: 0% for 15 months on purchases.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Chase Southwest Priority -->
-            <div class="card-tile">
-                <div class="card-header chase-header">
-                    <span class="card-name">Chase Southwest Priority</span>
-                    <span class="annual-fee">$229/yr</span>
-                </div>
-                <div class="card-content">
-                    <div class="badges">
-                        <span class="badge fee-change">Fee Change</span>
-                        <span class="badge new-perk">New Perk</span>
-                        <span class="badge benefit-change">Benefit Change</span>
-                        <span class="badge promo">Limited Offer</span>
-                    </div>
-                    <ul>
-                        <li>Annual fee increased from $149 to $229 (effective July 24, 2025, for new applicants; existing cardholders saw new fee on 2026 anniversary).</li>
-                        <li>New benefits (effective for flights operating in 2026): Earn 4x points on Southwest Airlines eligible purchases (previously 3x); 2x points at gas stations and restaurants; Free first checked bag for cardmember + up to 8 companions; Select Standard or Preferred seat at booking; Unlimited complimentary upgrades to Extra Legroom seats within 48 hours prior to departure; Group 5 priority boarding.</li>
-                        <li>Current welcome offer: 60,000 bonus points after spending $2,000 on purchases within the first three months.</li>
-                        <li>Complimentary 3 months Instacart+ membership (activate between 5/1/2025 and 12/31/2027).</li>
+                        <li>**Limited-Time Offer:** Earn a $200 bonus after spending $500 on purchases in the first 3 months.</li>
+                        <li>**Targeted Offer (likely expired for activation):** Some cardholders received an offer for 3% cash back on gas or groceries (up to $1,500 in purchases) from August 1 – October 31, 2026. Activation was required by September 15, 2026.</li>
                     </ul>
                 </div>
             </div>
 
-            <!-- Chase United Explorer -->
             <div class="card-tile">
-                <div class="card-header chase-header">
-                    <span class="card-name">Chase United Explorer</span>
-                    <span class="annual-fee">$95/yr</span>
+                <div class="card-header chase">
+                    <span>Chase Southwest Priority</span>
+                    <span>$229/yr</span>
                 </div>
                 <div class="card-content">
                     <div class="badges">
-                        <span class="badge fee-change">Fee Change</span>
-                        <span class="badge new-perk">New Perk</span>
-                        <span class="badge promo">Limited Offer</span>
+                        <span class="badge fee-change">FEE CHANGE</span>
+                        <span class="badge benefit-change">BENEFIT CHANGE</span>
+                        <span class="badge limited-offer">LIMITED OFFER</span>
                     </div>
                     <ul>
-                        <li>Annual fee increased to $150 (effective for existing cardholders at their 2026 anniversary date, or for new applicants after the first year).</li>
-                        <li>New benefits: Earn 9x total miles on eligible United flights (6x miles from United as MileagePlus member + 3x miles with card); 3x miles on all other eligible United purchases; Save 10% or more when booking flights with miles.</li>
-                        <li>Current welcome offer: Up to 60,000 bonus miles (50,000 bonus miles after spending $3,000 in purchases in the first 3 months + 10,000 bonus miles after adding an authorized user in the first 3 months).</li>
+                        <li>**Annual Fee Change:** Annual fee increased to $229 (from $149) in July 2026.</li>
+                        <li>**Earning Rate Change:** Southwest purchases now earn 4x points (up from 3x). Restaurants and gas stations now earn 2x points.</li>
+                        <li>**New Perk (effective July 2026):** Seat selection perks including choosing Standard or Preferred seats at booking, and unlimited free upgrades to Extra Legroom seats within 48 hours of departure (when available), for cardholder and up to 8 passengers.</li>
+                        <li>**Limited-Time Offer:** Earn 60,000 bonus points after spending $2,000 on purchases in the first 3 months.</li>
                     </ul>
                 </div>
             </div>
 
-            <!-- Chase Ink Business Cash -->
             <div class="card-tile">
-                <div class="card-header chase-header">
-                    <span class="card-name">Chase Ink Business Cash</span>
-                    <span class="annual-fee">No annual fee</span>
+                <div class="card-header chase">
+                    <span>Chase Ink Business Cash</span>
+                    <span>No annual fee</span>
                 </div>
                 <div class="card-content">
                     <div class="badges">
-                        <span class="badge promo">Limited Offer</span>
-                        <span class="badge new-perk">New Perk</span>
+                        <span class="badge limited-offer">LIMITED OFFER</span>
                     </div>
                     <ul>
-                        <li>Limited-time welcome offer: $1,000 bonus cash back after spending $8,000 on purchases in the first 4 months (highest offer ever).</li>
-                        <li>Introductory APR: 0% for 12 months on purchases.</li>
-                        <li>Complimentary Instacart+ membership for 3 months (activate between 5/1/2025 and 12/31/2027), plus a $20 monthly Instacart credit (available each month you have an active Instacart+ membership, from 5/1/2025 through 12/31/2027). Enrollment required.</li>
-                    </ul>
-                    <p class="action-needed">⚠️ Action needed: Activate complimentary Instacart+ membership and utilize the $20 monthly Instacart credit.</p>
-                </div>
-            </div>
-
-            <!-- Chase Ink Business Unlimited -->
-            <div class="card-tile">
-                <div class="card-header chase-header">
-                    <span class="card-name">Chase Ink Business Unlimited</span>
-                    <span class="annual-fee">No annual fee</span>
-                </div>
-                <div class="card-content">
-                    <div class="badges">
-                        <span class="badge promo">Limited Offer</span>
-                        <span class="badge new-perk">New Perk</span>
-                    </div>
-                    <ul>
-                        <li>Limited-time welcome offer: $1,000 bonus cash back after spending $8,000 on purchases in the first 4 months (highest offer ever).</li>
-                        <li>Introductory APR: 0% for 12 months on purchases.</li>
-                        <li>Complimentary Instacart+ membership for 3 months (activate between 5/1/2025 and 12/31/2027), plus a $20 monthly Instacart credit (available each month you have an active Instacart+ membership, from 5/1/2025 through 12/31/2027). Enrollment required.</li>
-                    </ul>
-                    <p class="action-needed">⚠️ Action needed: Activate complimentary Instacart+ membership and utilize the $20 monthly Instacart credit.</p>
-                </div>
-            </div>
-
-            <!-- Capital One Venture X -->
-            <div class="card-tile">
-                <div class="card-header capitalone-header">
-                    <span class="card-name">Capital One Venture X</span>
-                    <span class="annual-fee">$395/yr</span>
-                </div>
-                <div class="card-content">
-                    <div class="badges">
-                        <span class="badge benefit-change">Benefit Change</span>
-                        <span class="badge removed">Benefit Reduced</span>
-                        <span class="badge new-perk">New Perk</span>
-                        <span class="badge promo">Limited Offer</span>
-                    </div>
-                    <ul>
-                        <li>Lounge access changes effective February 1, 2026: Authorized users no longer receive complimentary lounge access (can be restored for $125/yr fee per AU). Complimentary guest access to Capital One Lounges/Landings eliminated unless $75,000+ annual spend (otherwise $45/adult, $25/child fee). Priority Pass guest access for personal Venture X cardholders shifted to paid-only ($35/guest).</li>
-                        <li>New benefits: 5x miles on Capital One Entertainment purchases; Complimentary PRIOR Subscription; 50% off Enthusiast membership to The Cultivist; Lifestyle Collection hotel experience credit and vacation rental benefits when booked through Capital One Travel.</li>
-                        <li>Current welcome offer: 75,000 miles after spending $4,000 on purchases in the first 3 months.</li>
-                    </ul>
-                    <p class="action-needed">⚠️ Action needed: If you want authorized users to have lounge access, pay the $125 annual lounge access fee per authorized user. If you want complimentary guest access to Capital One Lounges/Landings, ensure you spend $75,000+ in the prior calendar year.</p>
-                </div>
-            </div>
-
-            <!-- Capital One Venture -->
-            <div class="card-tile">
-                <div class="card-header capitalone-header">
-                    <span class="card-name">Capital One Venture</span>
-                    <span class="annual-fee">$95/yr</span>
-                </div>
-                <div class="card-content">
-                    <div class="badges">
-                        <span class="badge new-perk">New Perk</span>
-                        <span class="badge promo">Limited Offer</span>
-                    </div>
-                    <ul>
-                        <li>New $100 annual credit for hotel and vacation rental bookings through Capital One Travel, reported July 31, 2026. Credit renews each year on cardholder anniversary, no enrollment needed.</li>
-                        <li>Current welcome offer: 75,000 miles after spending $4,000 on purchases within 3 months.</li>
+                        <li>**Limited-Time Offer:** Earn $750 bonus cash back after spending $6,000 on purchases in the first 3 months. (An elevated $1,000 bonus for spending $8,000 in 4 months ended September 17, 2026).</li>
                     </ul>
                 </div>
             </div>
 
-            <!-- Discover it Card -->
             <div class="card-tile">
-                <div class="card-header discover-header">
-                    <span class="card-name">Discover it Card</span>
-                    <span class="annual-fee">No annual fee</span>
+                <div class="card-header chase">
+                    <span>Chase Ink Business Unlimited</span>
+                    <span>No annual fee</span>
                 </div>
                 <div class="card-content">
                     <div class="badges">
-                        <span class="badge new-perk">New Perk</span>
-                        <span class="badge promo">Limited Offer</span>
+                        <span class="badge limited-offer">LIMITED OFFER</span>
                     </div>
                     <ul>
-                        <li>New benefits due to Capital One acquisition: Up to 15% cash back or 15 Discover miles per dollar spent when shopping online directly through Capital One Offers; 5% cash back or 5 Discover miles per dollar spent on hotels, rental cars, and activities booked through Capital One Travel. Account management will move to Capital One website and app.</li>
-                        <li>Discover will automatically match all cash back earned at the end of the first year for new cardmembers.</li>
-                        <li>0% introductory APR for 15 months on purchases and eligible balance transfers.</li>
-                    </ul>
-                    <p class="action-needed">⚠️ Action needed: Activate Q3 2026 5% categories at <a href="https://www.discover.com/activate" target="_blank">discover.com/activate</a> by September 30, 2026.</p>
-                </div>
-            </div>
-
-            <!-- Citi Custom Cash -->
-            <div class="card-tile">
-                <div class="card-header citi-header">
-                    <span class="card-name">Citi Custom Cash</span>
-                    <span class="annual-fee">No annual fee</span>
-                </div>
-                <div class="card-content">
-                    <div class="badges">
-                        <span class="badge removed">Benefit Change</span>
-                        <span class="badge promo">Limited Offer</span>
-                    </div>
-                    <ul>
-                        <li>No longer accepting new applications as of May 28, 2026. Existing cardholders are not impacted and can continue to use their card and enjoy its benefits.</li>
-                        <li>Current welcome offer (for those who applied before May 28, 2026): $200 for spending $1,500 in the first 6 months.</li>
-                        <li>Introductory APR: 0% for 18 months on balance transfers.</li>
+                        <li>**Limited-Time Offer:** Earn $750 bonus cash back after spending $6,000 on purchases in the first 3 months. (An elevated $1,000 bonus for spending $8,000 in 4 months ended September 17, 2026).</li>
                     </ul>
                 </div>
             </div>
 
-            <!-- US Bank Business Triple Cash -->
             <div class="card-tile">
-                <div class="card-header usbank-header">
-                    <span class="card-name">US Bank Business Triple Cash</span>
-                    <span class="annual-fee">No annual fee</span>
+                <div class="card-header capitalone">
+                    <span>Capital One Venture X</span>
+                    <span>$395/yr</span>
                 </div>
                 <div class="card-content">
                     <div class="badges">
-                        <span class="badge promo">Limited Offer</span>
+                        <span class="badge benefit-change">BENEFIT CHANGE</span>
+                        <span class="badge limited-offer">LIMITED OFFER</span>
                     </div>
                     <ul>
-                        <li>Current welcome offer: $750 cash back after spending $6,000 in the first 180 days.</li>
-                        <li>Introductory APR: 0% for 12 billing cycles on purchases and balance transfers.</li>
+                        <li>**Benefit Reduced (effective Feb 1, 2026):** Authorized users no longer receive complimentary lounge access. Primary cardholders can pay $125/year per AU for lounge access.</li>
+                        <li>**Benefit Reduced (effective Feb 1, 2026):** Complimentary guest access to Capital One Lounges/Landings requires $75,000 annual spend. Otherwise, guests are $45 each ($25 for 17 and under).</li>
+                        <li>**Benefit Reduced (effective Feb 1, 2026):** Complimentary guest access to Priority Pass lounges removed; guests are $35 each per visit.</li>
+                        <li>**Limited-Time Offer:** Earn 75,000 miles after spending $4,000 on purchases in the first 3 months.</li>
+                        <li>**Targeted Offer (Venture X Business):** Existing Capital One Venture X Business cardholders can earn a $500 Capital One Business Travel credit after spending $3,000 on Capital One Business Travel bookings by December 15, 2026. Also, a fourth night free at select Premier and Lifestyle Collection hotels when booking a stay of at least four nights through Capital One Business Travel. Offer began September 30, 2026.</li>
+                    </ul>
+                    <p class="action-needed">⚠️ Action needed: If you have authorized users who need lounge access, be aware of the $125 annual fee per authorized user. If targeted for the Venture X Business offer, spend $3,000 on Capital One Business Travel by December 15, 2026.</p>
+                </div>
+            </div>
+
+            <div class="card-tile">
+                <div class="card-header capitalone">
+                    <span>Capital One Venture</span>
+                    <span>$95/yr</span>
+                </div>
+                <div class="card-content">
+                    <div class="badges">
+                        <span class="badge limited-offer">LIMITED OFFER</span>
+                    </div>
+                    <ul>
+                        <li>**Limited-Time Offer:** Earn 75,000 bonus miles after spending $4,000 on purchases within the first 3 months. Also, a $300 credit to use on hotel and vacation rental bookings through Capital One Travel in the first cardholder year.</li>
                     </ul>
                 </div>
             </div>
 
-            <!-- US Bank Altitude Go -->
             <div class="card-tile">
-                <div class="card-header usbank-header">
-                    <span class="card-name">US Bank Altitude Go</span>
-                    <span class="annual-fee">No annual fee</span>
+                <div class="card-header wellsfargo">
+                    <span>Wells Fargo Active Cash</span>
+                    <span>No annual fee</span>
                 </div>
                 <div class="card-content">
                     <div class="badges">
-                        <span class="badge benefit-change">Benefit Change</span>
-                        <span class="badge removed">Benefit Removed</span>
-                        <span class="badge new-perk">New Perk</span>
-                        <span class="badge promo">Limited Offer</span>
+                        <span class="badge limited-offer">LIMITED OFFER</span>
                     </div>
                     <ul>
-                        <li>4x points on dining, takeout, and restaurant delivery capped at $2,000 each quarter (then 1x point), effective April 14, 2025.</li>
-                        <li>Points will expire if there is no activity for 12 consecutive billing cycles, effective April 14, 2025.</li>
-                        <li>Redemption value for statement credit, gift cards, merchandise, Real-Time Rewards, and U.S. Bank Rewards Card may vary over time (reports of 0.8 cents per point for statement credit). Full 1 cent per point value for deposits to eligible U.S. Bank accounts or for travel in the Altitude Rewards Center.</li>
-                        <li>Cell phone protection benefit no longer available.</li>
-                        <li>New benefits (effective April 14, 2025): Points can be redeemed for a monetary charitable contribution with 100% match from U.S. Bank; Enhanced online experience for rewards and benefits; New and improved Travel Center (with Booking.com); Discount on purchased gift cards.</li>
-                        <li>Current welcome offer: 20,000 points after spending $1,000 in the first 90 days.</li>
+                        <li>**Limited-Time Offer:** Earn a $100 cash rewards bonus after spending $500 in purchases in the first 3 months.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-tile">
+                <div class="card-header usbank">
+                    <span>US Bank Business Triple Cash</span>
+                    <span>No annual fee</span>
+                </div>
+                <div class="card-content">
+                    <div class="badges">
+                        <span class="badge new-perk">NEW PERK</span>
+                        <span class="badge limited-offer">LIMITED OFFER</span>
+                    </div>
+                    <ul>
+                        <li>**New Perk:** Annual $100 statement credit for recurring software subscription expenses (e.g., FreshBooks, QuickBooks).</li>
+                        <li>**Limited-Time Offer:** Earn a $750 cash back bonus after spending $6,000 in the first 180 days.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-tile">
+                <div class="card-header usbank">
+                    <span>US Bank Altitude Go</span>
+                    <span>No annual fee</span>
+                </div>
+                <div class="card-content">
+                    <div class="badges">
+                        <span class="badge limited-offer">LIMITED OFFER</span>
+                    </div>
+                    <ul>
+                        <li>**Limited-Time Offer:** Earn 20,000 bonus points after spending $1,000 in eligible net purchases in the first 90 days.</li>
                     </ul>
                 </div>
             </div>
         </div>
 
-        <div class="no-changes-section">
+        <div class="no-changes">
             <details>
-                <summary>2 cards with no significant changes this month</summary>
+                <summary>No significant changes this month (2 cards)</summary>
                 <ul>
-                    <li>Wells Fargo Active Cash</li>
-                    <li>Citi Double Cash (not in original list, but often compared to Custom Cash, so good to clarify no news) - *Self-correction: Only list cards from the provided portfolio. Wells Fargo Active Cash is the only one here.*</li>
-                </ul>
-                <ul>
-                    <li>Wells Fargo Active Cash</li>
+                    <li>Chase United Explorer</li>
+                    <li>Citi Custom Cash</li>
                 </ul>
             </details>
         </div>
 
         <footer>
-            Researched August 2026 · Auto-refreshed on the 1st of each month via GitHub Actions · 18 cards tracked
+            Researched October 2026 · Auto-refreshed on the 1st of each month via GitHub Actions · 18 cards tracked
         </footer>
     </div>
 </body>
